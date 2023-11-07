@@ -37,13 +37,13 @@ These instructions will get you a copy of the project up and running on your loc
 #### 3. Build and Run the Project to test it connects to Database. It should seed the database on first run.
 
 ## Contributing Guide
-Checkout the CONTRIBUTING.md file for further information on Contributing.
+Checkout the [CONTRIBUTING.md](https://github.com/Developing-Developer2019/LibraryManagementApp/blob/master/CONTRIBUTING.md) file for further information on Contributing.
 
 ## Code of Conduct
-Please refer to the CODE_OF_CONDUCT.md file for community guidelines.
+Please refer to the [CODE_OF_CONDUCT.md](https://github.com/Developing-Developer2019/LibraryManagementApp/blob/master/CODE_OF_CONDUCT.md) file for community guidelines.
 
 ## License
-This project is licensed under the Custom License for Learning and Reference. See the LICENSE.md file for more details.
+This project is licensed under the Custom License for Learning and Reference. See the [LICENSE.md](https://github.com/Developing-Developer2019/LibraryManagementApp/blob/master/LICENSE.md) file for more details.
 
 ## Contact & Support
 For any issues or feature suggestions, open a GitHub issue. If you'd like to get in touch directly, head over to the the Discord and drop a message in request-support [Library Management App Discord](https://discord.gg/rUj2q9Er).
