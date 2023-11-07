@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
+using Core.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Application.Models;
 
 namespace Application.Controllers;
 
@@ -14,11 +14,6 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
     {
         return View();
     }
