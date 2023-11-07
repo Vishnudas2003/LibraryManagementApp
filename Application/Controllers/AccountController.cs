@@ -24,4 +24,18 @@ public class AccountController : Controller
     {
         return View();
     }
+    
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<IActionResult> Login()
+    {
+        return View();
+    }
+    
+    [HttpPost]
+    [AllowAnonymous]
+    public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+    {
+        return View();
+    }
 }
