@@ -1,6 +1,11 @@
-﻿using Core.Models.Account.ViewModels;
+﻿using Core.Constants;
+using Core.Models.Account.ViewModels;
+using Core.Models.Shared;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces.Services;
 
 namespace Application.Controllers;
 
@@ -17,16 +22,35 @@ public class AccountController : Controller
 
     [HttpGet]
     [AllowAnonymous]
-    public async Task<IActionResult> Register()
+    public IActionResult Register()
     {
-        return View();
+        return View(new RegisterViewModel());
     }
     
     [HttpPost]
     [AllowAnonymous]
     public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
     {
-        return View();
+        var result = await _registerService.RegisterUserAsync(registerViewModel);
+
+        if (result.Succeeded)
+        {
+            var alertViewModel = new AlertViewModel
+            {
+                Message = StringConstants.RegisterSuccess,
+                IsSuccess = true
+            };
+            
+            return View(nameof(Login), new LoginViewModel { AlertViewModel = alertViewModel });
+        }
+
+        registerViewModel.AlertViewModel = new AlertViewModel
+        {
+            Message = StringConstants.RegisterFailure,
+            IsSuccess = false
+        };
+
+        return View(registerViewModel);
     }
     
     [HttpGet]
