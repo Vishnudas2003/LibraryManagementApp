@@ -2,7 +2,14 @@
   pointer-events: none;
 }
 
-.authentication-background{
+.authentication-background-register{
+  background-image: url(../img/Books.jpeg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.authentication-background-login{
   background-image: url(../img/Library.jpg);
   background-position: center;
   background-size: cover;
