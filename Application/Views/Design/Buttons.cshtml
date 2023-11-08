@@ -1,0 +1,23 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-action="Index" asp-controller="Design">Design</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Buttons</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-12 mt-3">
+        <partial name="Buttons/_Buttons"/>
+    </div>
+    <div class="col-md-12 mt-3">
+        <partial name="Buttons/_OutlineButtons"/>
+    </div>
+    <div class="col-md-12 mt-3">
+        <partial name="Buttons/_DisabledButtons"/>
+    </div>    
+    <div class="col-md-12 mt-3 pb-100">
+        <partial name="Buttons/_DisabledOutlineButtons"/>
+    </div>
+</div>

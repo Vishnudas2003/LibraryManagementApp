@@ -19,7 +19,13 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+
+
+
     </ItemGroup>
+
+
+
 
 
 
