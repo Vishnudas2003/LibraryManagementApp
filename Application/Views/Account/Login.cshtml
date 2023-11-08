@@ -28,12 +28,15 @@
                 <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary w-100">Login</button>
+                <button type="submit" class="btn btn-primary w-100">LOGIN</button>
             </div>
+            
+            <hr/>
+            
             <div class="mb-3">
                 <span>Don't have an account? <a asp-action="Register" asp-controller="Account">Register</a></span>
                 <br/>
-                <span>Forgotten Password? <a href="#">Add Forgotten Password feature here</a></span>
+                <span>Forgotten Password? <a class="disabled" href="#">Reset Password</a></span>
             </div>
         </form>
     </div>
