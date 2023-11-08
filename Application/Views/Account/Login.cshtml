@@ -10,7 +10,7 @@
 }
 
 <div class="row vh-84">
-    <div class="col-md-6 d-none d-md-block authentication-background"></div>
+    <div class="col-md-6 d-none d-md-block authentication-background-login"></div>
     <div class="col-md-6 d-flex align-items-center justify-content-center">
 
         <form asp-action="Login" asp-controller="Account" method="post" class="authentication-form">
@@ -31,7 +31,7 @@
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </div>
             <div class="mb-3">
-                <span>Don't have an account? <a asp-action="Register" asp-controller="Account">REGISTER</a></span>
+                <span>Don't have an account? <a asp-action="Register" asp-controller="Account">Login</a></span>
                 <br/>
                 <span>Forgotten Password? <a href="#">Add Forgotten Password feature here</a></span>
             </div>
