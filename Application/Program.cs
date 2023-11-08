@@ -3,6 +3,7 @@ using Data.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces.Repository;
+using Services.Interfaces.Services;
 using Services.Repository;
 using Services.Services;
 
@@ -12,7 +13,7 @@ ConfigureDatabase(webApplicationBuilder);
 ConfigureIdentity(webApplicationBuilder);
 ConfigureMvc(webApplicationBuilder);
 ConfigureServices(webApplicationBuilder);
-ConfigureInterfaces(webApplicationBuilder);
+ConfigureRepositories(webApplicationBuilder);
 AddAuthorizationPolicies(webApplicationBuilder);
 ConfigureCookie(webApplicationBuilder);
 
@@ -47,12 +48,12 @@ void ConfigureMvc(WebApplicationBuilder builder)
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddScoped<RegisterService>();
+    builder.Services.AddTransient<ILoginService, LoginService>();
+    builder.Services.AddTransient<IRegisterService, RegisterService>();
 }
 
-void ConfigureInterfaces(WebApplicationBuilder builder)
+void ConfigureRepositories(WebApplicationBuilder builder)
 {
-    builder.Services.AddTransient<IUserRepository<ApplicationUser>, UserRepository<ApplicationUser>>();
     builder.Services.AddTransient<IRoleRepository, RoleRepository<IdentityRole>>();
 }
 
@@ -60,14 +61,15 @@ void AddAuthorizationPolicies(WebApplicationBuilder builder)
 {
     builder.Services.AddAuthorization(options =>
     {
-        options.AddPolicy("Customer", policy => policy.RequireRole("Customer"));
-        options.AddPolicy("BankEmployee", policy => policy.RequireRole("BankEmployee"));
-        options.AddPolicy("BankAdmin", policy => policy.RequireRole("BankAdmin"));
-        options.AddPolicy("Teller", policy => policy.RequireRole("Teller"));
-        options.AddPolicy("LoanOfficer", policy => policy.RequireRole("LoanOfficer"));
-        options.AddPolicy("SystemAdministrator", policy => policy.RequireRole("SystemAdministrator"));
-        options.AddPolicy("Auditor", policy => policy.RequireRole("Auditor"));
-        options.AddPolicy("FraudAnalyst", policy => policy.RequireRole("FraudAnalyst"));
+        options.AddPolicy("Patron", policy => policy.RequireRole("Patron"));
+        options.AddPolicy("Student", policy => policy.RequireRole("Student"));
+        options.AddPolicy("Teacher", policy => policy.RequireRole("Teacher"));
+        options.AddPolicy("AssistantLibrarian", policy => policy.RequireRole("AssistantLibrarian"));
+        options.AddPolicy("EventManagement", policy => policy.RequireRole("EventManagement"));
+        options.AddPolicy("Administrator", policy => policy.RequireRole("Administrator"));
+        options.AddPolicy("TechnicalStaff", policy => policy.RequireRole("TechnicalStaff"));
+        options.AddPolicy("Librarian", policy => policy.RequireRole("Librarian"));
+        options.AddPolicy("Researcher", policy => policy.RequireRole("Researcher"));
     });
 }
 

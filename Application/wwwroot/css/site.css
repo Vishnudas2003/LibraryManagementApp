@@ -1,3 +1,7 @@
+.no-pointer{
+  pointer-events: none;
+}
+
 .authentication-background{
   background-image: url(../img/Library.jpg);
   background-position: center;
