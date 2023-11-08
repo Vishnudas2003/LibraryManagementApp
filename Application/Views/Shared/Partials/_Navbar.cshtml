@@ -1,7 +1,11 @@
-﻿<header>
+﻿@using Microsoft.AspNetCore.Identity
+@using Core.Models.Account
+@inject SignInManager<ApplicationUser> SignInManager
+
+<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">> <b>Library</b>Management<b>App</b></a>
+            <span class="navbar-brand no-pointer">> <b>Library</b>Management<b>App</b></span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -13,16 +17,14 @@
                         <a class="nav-link text-center text-dark" asp-action="Index" asp-controller="Home"><b>HOME</b></a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item vr mx-2 d-none d-md-block"></li>
-                    <li class="nav-item py-2 py-md-0">
-                        <a class="nav-link text-dark text-center" asp-action="Login" asp-controller="Account"><b>LOGIN</b></a>
-                    </li>
-                    <li class="nav-item vr mx-2 d-none d-md-block"></li>
-                    <li class="nav-item py-2 py-md-0">
-                        <a class="nav-link text-dark text-center" asp-action="Register" asp-controller="Account"><b>REGISTER</b></a>
-                    </li>
-                </ul>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <partial name="~/Views/Shared/Partials/Authentication/_Authenticated.cshtml"/>
+                }
+                else
+                {
+                    <partial name="~/Views/Shared/Partials/Authentication/_NoneAuthenticated.cshtml"/>
+                }
             </div>
         </div>
     </nav>

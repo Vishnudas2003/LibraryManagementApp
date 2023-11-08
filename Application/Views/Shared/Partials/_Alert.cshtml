@@ -1,0 +1,9 @@
+﻿@model Core.Models.Shared.AlertViewModel
+
+@{
+    var alertType = Model.IsSuccess ? "alert-success" : "alert-danger";
+}
+
+<div class="alert @alertType" role="alert">
+    @Model.Message
+</div>
