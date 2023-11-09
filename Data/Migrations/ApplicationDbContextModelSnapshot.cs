@@ -101,7 +101,7 @@ namespace Data.Migrations
                             Id = "93c3a7ce-45c4-4be9-8cf5-9030c8748330",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7419),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6595),
                             Email = "administrator@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -119,7 +119,7 @@ namespace Data.Migrations
                             Id = "4d9c6f2f-0d3b-40f7-9e71-664c3276a413",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7508),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6661),
                             Email = "librarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -137,7 +137,7 @@ namespace Data.Migrations
                             Id = "13b2a13d-6001-477e-9859-f352097da7e7",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7527),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6674),
                             Email = "assistantlibrarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -155,7 +155,7 @@ namespace Data.Migrations
                             Id = "7e362909-2567-4e1f-a9ae-e57335eeb14d",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7534),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6684),
                             Email = "technicalstaff@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -173,7 +173,7 @@ namespace Data.Migrations
                             Id = "a93e2d70-15c0-4ec3-9534-0e4b82d25579",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7541),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6692),
                             Email = "patron@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -191,7 +191,7 @@ namespace Data.Migrations
                             Id = "f9526d05-d4ba-41d1-ae8f-e2375fdd7042",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7551),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6704),
                             Email = "researcher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -209,7 +209,7 @@ namespace Data.Migrations
                             Id = "697660f1-6b37-47d6-a0ea-bedce25e0688",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7557),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6712),
                             Email = "eventmanagement@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -227,7 +227,7 @@ namespace Data.Migrations
                             Id = "7e06c23c-10a0-435d-8e44-49e5f497cff2",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7565),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6720),
                             Email = "teacher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -245,7 +245,7 @@ namespace Data.Migrations
                             Id = "f32ec246-ba2c-4fd4-8fb3-3f7b42389f84",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 8, 10, 20, 35, 549, DateTimeKind.Local).AddTicks(7572),
+                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6731),
                             Email = "student@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -258,6 +258,193 @@ namespace Data.Migrations
                             TwoFactorEnabled = false,
                             UserName = "Student"
                         });
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Author");
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Book", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Isbn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PublicationDateT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("PublisherId");
+
+                    b.ToTable("Book");
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genre");
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Publisher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Publisher");
+                });
+
+            modelBuilder.Entity("Core.Models.Fine.Fines", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FineDateT")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoanId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("LoanId")
+                        .IsUnique();
+
+                    b.ToTable("Fines");
+                });
+
+            modelBuilder.Entity("Core.Models.LoanManagement.Loan", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BookId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CheckoutDateT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DueDateT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ReturnDateT")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Loan");
+                });
+
+            modelBuilder.Entity("Core.Models.LoanManagement.Reservation", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BookId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReservationDateT")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -496,6 +683,90 @@ namespace Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Models.Catalog.Book", b =>
+                {
+                    b.HasOne("Core.Models.Catalog.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Catalog.Genre", "Genre")
+                        .WithMany("Books")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Catalog.Publisher", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("Core.Models.Fine.Fines", b =>
+                {
+                    b.HasOne("Core.Models.Account.ApplicationUser", "ApplicationUser")
+                        .WithMany("Fines")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.LoanManagement.Loan", "Loan")
+                        .WithOne("Fines")
+                        .HasForeignKey("Core.Models.Fine.Fines", "LoanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Loan");
+                });
+
+            modelBuilder.Entity("Core.Models.LoanManagement.Loan", b =>
+                {
+                    b.HasOne("Core.Models.Account.ApplicationUser", "ApplicationUser")
+                        .WithMany("Loans")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Catalog.Book", "Book")
+                        .WithMany("Loans")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Core.Models.LoanManagement.Reservation", b =>
+                {
+                    b.HasOne("Core.Models.Account.ApplicationUser", "ApplicationUser")
+                        .WithMany("Reservations")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Catalog.Book", "Book")
+                        .WithMany("Reservations")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Book");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -544,6 +815,43 @@ namespace Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Models.Account.ApplicationUser", b =>
+                {
+                    b.Navigation("Fines");
+
+                    b.Navigation("Loans");
+
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Book", b =>
+                {
+                    b.Navigation("Loans");
+
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Genre", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Core.Models.Catalog.Publisher", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Core.Models.LoanManagement.Loan", b =>
+                {
+                    b.Navigation("Fines")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
