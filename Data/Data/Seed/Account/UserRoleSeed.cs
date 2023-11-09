@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Seed.Account;
+namespace Data.Data.Seed.Account;
 
 public static class UserRoleSeed
 {
