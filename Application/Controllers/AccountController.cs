@@ -13,11 +13,13 @@ public class AccountController : Controller
 {
     private readonly ILoginService _loginService;
     private readonly IRegisterService _registerService;
+    private readonly IProfileService _profileService;
     
-    public AccountController(ILoginService loginService, IRegisterService registerService)
+    public AccountController(ILoginService loginService, IRegisterService registerService, IProfileService profileService)
     {
         _loginService = loginService;
         _registerService = registerService;
+        _profileService = profileService;
     }
 
     [HttpGet]
@@ -80,5 +82,19 @@ public class AccountController : Controller
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
         return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Profile()
+    {
+        var profileViewModel = await _profileService.GetProfileDetailsAsync(User);
+        
+        return View(profileViewModel);
+    }
+    
+    [HttpPost]
+    public IActionResult Profile(ProfileViewModel profileViewModel)
+    {
+        return View(profileViewModel);
     }
 }
