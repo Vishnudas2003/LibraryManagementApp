@@ -50,6 +50,7 @@ void ConfigureServices(WebApplicationBuilder builder)
 {
     builder.Services.AddTransient<ILoginService, LoginService>();
     builder.Services.AddTransient<IRegisterService, RegisterService>();
+    builder.Services.AddTransient<IProfileService, ProfileService>();
 }
 
 void ConfigureRepositories(WebApplicationBuilder builder)
