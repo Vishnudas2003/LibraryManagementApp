@@ -7,4 +7,5 @@ public interface IBookService
     Task<Book> AddBookAsync(Book book);
     Task DeleteBookAsync(Book book);
     Book GetBookDetails(string id);
+    Task<Book> EditBookAsync(Book book);
 }

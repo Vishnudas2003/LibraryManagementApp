@@ -22,9 +22,14 @@ public class BookService : IBookService
     {
         await _bookGenericRepository.DeleteAsync(book);
     }
+
     public Book GetBookDetails(string id)
     {
         return _bookGenericRepository.GetById(id) ?? new Book();
     }
+
+    public async Task<Book> EditBookAsync(Book book)
+    {
+        return await _bookGenericRepository.UpdateAsync(book);
     }
 }

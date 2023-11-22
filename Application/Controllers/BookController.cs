@@ -23,7 +23,6 @@ public class BookController : Controller
     
     [HttpPost]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
-    public IActionResult Add(Book book)
     public async Task<IActionResult> Add(Book book)
     {
         var result = await _bookService.AddBookAsync(book);
@@ -49,6 +48,25 @@ public class BookController : Controller
     {
         return View(book);
     }
+    
+    [HttpGet]
+    [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
+    public IActionResult Edit(string id)
+    {
+        return View(_bookService.GetBookDetails(id));
+    }
+    
+    [HttpPost]
+    [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
+    public async Task<IActionResult> Edit(Book book)
+    {
+        var updatedBook = await _bookService.EditBookAsync(book);
+        
+        // TODO: Add redirect to edit view if errormessage exists
+
+        return RedirectToAction(nameof(Details), new { id = book.Id });
+    }
+
     [HttpGet]
     [AllowAnonymous]
     public IActionResult Details(string id)
