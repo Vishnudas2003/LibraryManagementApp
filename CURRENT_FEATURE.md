@@ -2,7 +2,7 @@
 
 ## Steps
 
-### 1. Define Catalog Data Model
+### 1. Define Catalog Data Model [COMPLETE]
 - Create classes that represent the entities in your database (e.g., Book, Author, Category).
 - Include properties in these classes that correspond to the columns in your database tables.
 - Use data annotations for validations and entity framework mappings if you are using Entity Framework.
