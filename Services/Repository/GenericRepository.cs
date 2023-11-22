@@ -1,5 +1,6 @@
 ﻿using Core.Models.Shared;
 using Data.Data;
+using Microsoft.EntityFrameworkCore;
 using Services.Interfaces.Repository;
 
 namespace Services.Repository;
@@ -70,5 +71,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>().Where(t => !t.IsDeleted).ToList();
+        }
+        
+        public async Task<List<T>> GetAllAsync()
+        {
+            return await _context.Set<T>().Where(t => !t.IsDeleted).ToListAsync();
         }
     }

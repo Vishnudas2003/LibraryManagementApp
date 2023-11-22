@@ -15,4 +15,6 @@ public interface IGenericRepository<T>
     T? GetById(int id);
         
     IEnumerable<T> GetAll();
+
+    Task<List<T>> GetAllAsync();
 }

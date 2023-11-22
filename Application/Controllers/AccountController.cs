@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces.Services;
+using Services.Interfaces.Services.Authorization;
 
 namespace Application.Controllers;
 
