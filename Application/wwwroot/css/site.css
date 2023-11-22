@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;700;900&display=swap');
+
 /*!
  * Bootstrap v5.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -71,14 +73,14 @@
   --bs-dark-disabled: #868e96;
   
   --bs-body: #f8f9fa;
-  --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
+  --bs-body-color: var(--bs-dark);
   --bs-body-bg: var(--bs-light);
   
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-body-font-family: var(--bs-font-family);
+  --bs-font-family: "Nunito", Nunito, Arial;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
@@ -11352,4 +11354,45 @@ textarea.form-control-lg {
 
 .pb-100{
   padding-bottom: 100px;
+}
+
+.page-section{
+  height: 60vh;
+}
+
+.hero-container{
+  background-image: url(../img/banner-img.png);
+  width: 100%;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.hero{
+  width: 100%;
+  height: 60vh;
+  background-color: var(--bs-white);
+}
+
+.hero-text{
+  margin:50px 0;
+  background-color: var(--bs-white);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.hero-button{
+  margin:50px 0;
+}
+
+.section-title{
+  margin-top: 50px;
+}
+
+.section-cards{
+  margin-top: 34px;
+}
+
+.text-justify{
+  text-align: justify;
 }
