@@ -12,8 +12,15 @@ public class BookService : IBookService
     private readonly ApplicationDbContext _applicationDbContext;
 
     public BookService(IGenericRepository<Book> bookRepository, ApplicationDbContext applicationDbContext)
+    public BookService(IGenericRepository<Book> bookRepository)
     {
         _bookGenericRepository = bookRepository;
         _applicationDbContext = applicationDbContext;
+    }
+
+    public async Task<Book> AddBookAsync(Book book)
+    {
+        return await _bookGenericRepository.AddAsync(book);
+    }
     }
 }

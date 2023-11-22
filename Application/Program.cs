@@ -57,6 +57,7 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddTransient<IRegisterService, RegisterService>();
     builder.Services.AddTransient<IProfileService, ProfileService>();
     builder.Services.AddTransient<IBookService, BookService>();
+    builder.Services.AddTransient<ICatalogService, CatalogService>();
 }
 
 void ConfigureRepositories(WebApplicationBuilder builder)
