@@ -7,30 +7,24 @@ namespace Application.Controllers;
 
 public class CatalogController : Controller
 {
-    private readonly IBookService _bookService;
+    private readonly ICatalogService _catalogService;
 
-    public CatalogController(IBookService bookService)
+    public CatalogController(ICatalogService catalogService)
     {
-        _bookService = bookService;
+        _catalogService = catalogService;
     }
 
     [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
-        var books = await _bookService.GetBooksAsync();
+        var books = await _catalogService.GetBooksAsync();
         return View(books);
     }
 
     [AllowAnonymous]
     public async Task<IActionResult> Index(BookFilter bookFilter)
     {
-        var books = await _bookService.GetBooksAsync(bookFilter);
+        var books = await _catalogService.GetBooksAsync(bookFilter);
         return View(books);
-    }
-
-    [Authorize(Roles = "Administrator")]
-    public async Task<IActionResult> AddBook()
-    {
-        
     }
 }
