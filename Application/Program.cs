@@ -1,11 +1,16 @@
 using Core.Models.Account;
+using Core.Models.Catalog;
 using Data.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces.Repository;
 using Services.Interfaces.Services;
+using Services.Interfaces.Services.Authorization;
+using Services.Interfaces.Services.Catalog;
 using Services.Repository;
 using Services.Services;
+using Services.Services.Authorization;
+using Services.Services.Catalog;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +56,8 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddTransient<ILoginService, LoginService>();
     builder.Services.AddTransient<IRegisterService, RegisterService>();
     builder.Services.AddTransient<IProfileService, ProfileService>();
+    builder.Services.AddTransient<IBookService, BookService>();
+    builder.Services.AddTransient<ICatalogService, CatalogService>();
 }
 
 void ConfigureRepositories(WebApplicationBuilder builder)

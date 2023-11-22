@@ -1,13 +1,30 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Core.Models.Catalog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces.Services.Catalog;
 
 namespace Application.Controllers;
 
 public class CatalogController : Controller
 {
-    [AllowAnonymous]
-    public IActionResult Index()
+    private readonly ICatalogService _catalogService;
+
+    public CatalogController(ICatalogService catalogService)
     {
-        return View();
+        _catalogService = catalogService;
+    }
+
+    [AllowAnonymous]
+    public async Task<IActionResult> Index()
+    {
+        var books = await _catalogService.GetBooksAsync();
+        return View(books);
+    }
+
+    [AllowAnonymous]
+    public async Task<IActionResult> Index(BookFilter bookFilter)
+    {
+        var books = await _catalogService.GetBooksAsync(bookFilter);
+        return View(books);
     }
 }

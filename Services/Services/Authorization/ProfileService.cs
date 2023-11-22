@@ -3,8 +3,9 @@ using Core.Models.Account;
 using Core.Models.Account.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Services.Interfaces.Services;
+using Services.Interfaces.Services.Authorization;
 
-namespace Services.Services;
+namespace Services.Services.Authorization;
 
 public class ProfileService : IProfileService
 {

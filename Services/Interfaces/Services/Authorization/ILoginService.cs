@@ -1,6 +1,6 @@
 ﻿using Core.Models.Account.ViewModels;
 
-namespace Services.Interfaces.Services;
+namespace Services.Interfaces.Services.Authorization;
 
 public interface ILoginService
 {
