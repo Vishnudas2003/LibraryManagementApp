@@ -148,12 +148,10 @@ a.navbar-brand {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
-  background-color: var(--bs-primary-darker);
+  background: linear-gradient(to right, var(--bs-primary-darker), var(--bs-secondary-darker)) !important;
   color: var(--bs-light) !important;
 }
 
@@ -3619,7 +3617,7 @@ textarea.form-control-lg {
   z-index: 1000;
   display: none;
   min-width: 10rem;
-  padding: 0.5rem 0;
+  padding: 0;
   margin: 0;
   font-size: 1rem;
   color: #212529;
@@ -3630,6 +3628,12 @@ textarea.form-control-lg {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
+
+.dropdown-item:last-child{
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
 .dropdown-menu[data-bs-popper] {
   top: 100%;
   left: 0;
@@ -3637,8 +3641,8 @@ textarea.form-control-lg {
 }
 
 .dropdown-menu-md{
-  background-color: var(--bs-primary-darker);
-  margin-top: 7px;
+  background-color: var(--bs-secondary-darker);
+  margin-top: 7px !important;
   margin-right: -13px;
   border-radius: 0 0 10px 10px;
 }
@@ -3832,10 +3836,9 @@ textarea.form-control-lg {
 }
 
 .dropdown-divider {
-  height: 0;
-  margin: 0.5rem 0;
+  margin: 0 0;
   overflow: hidden;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-top: 2px solid var(--bs-dark-darker);
 }
 
 .dropdown-item {
@@ -4114,7 +4117,7 @@ textarea.form-control-lg {
   justify-content: space-between;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  background-color: var(--bs-primary-darker) !important;
+  background: linear-gradient(to right, var(--bs-primary-darker), var(--bs-secondary-darker)) !important;
 }
 .navbar > .container,
 .navbar > .container-fluid,
@@ -11357,13 +11360,20 @@ textarea.form-control-lg {
 }
 
 .page-section{
-  height: 60vh;
+  min-height: 60vh;
+  padding: 50px 0;
+}
+
+.page-section-white{
+  min-height: 60vh;
+  background-color: var(--bs-white);
+  padding: 50px 0;
 }
 
 .hero-container{
   background-image: url(../img/banner-img.png);
   width: 100%;
-  background-position: left center;
+  background-position: right center;
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -11375,7 +11385,7 @@ textarea.form-control-lg {
 }
 
 .hero-text{
-  margin:50px 0;
+  margin: 50px 0;
   background-color: var(--bs-white);
   padding: 5px;
   border-radius: 5px;
@@ -11385,14 +11395,29 @@ textarea.form-control-lg {
   margin:50px 0;
 }
 
-.section-title{
-  margin-top: 50px;
-}
-
 .section-cards{
   margin-top: 34px;
 }
 
 .text-justify{
   text-align: justify;
+}
+
+.card-image{
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+}
+
+.card-footer-button{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.dropdown-menu-md .dropdown-item{
+  padding: 10px 0;
+}
+
+.dropdown-menu-md .dropdown-item:hover{
+  background-color: var(--bs-primary);
 }
