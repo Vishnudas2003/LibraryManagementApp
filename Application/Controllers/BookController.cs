@@ -35,18 +35,13 @@ public class BookController : Controller
         return RedirectToAction(nameof(Details), new { id = book.Id });
     }
     
-    [HttpGet]
-    [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
-    public IActionResult Delete()
-    {
-        return View(new Book());
-    }
-    
     [HttpPost]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
-    public IActionResult Delete(Book book)
+    public async Task<IActionResult> Delete(string id)
     {
-        return View(book);
+        await _bookService.DeleteBookAsync(id);
+
+        return RedirectToAction(nameof(Index), "Catalog");
     }
     
     [HttpGet]

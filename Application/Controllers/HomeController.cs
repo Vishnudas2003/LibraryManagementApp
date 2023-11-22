@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using Core.Models.Account;
 using Core.Models.Shared;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers;
@@ -7,14 +9,21 @@ namespace Application.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
     {
         _logger = logger;
+        _signInManager = signInManager;
     }
 
     public IActionResult Index()
     {
+        if (_signInManager.IsSignedIn(User))
+        {
+            return RedirectToAction(nameof(Index), "Catalog");
+        }
+        
         return View();
     }
     

@@ -5,7 +5,7 @@ namespace Services.Interfaces.Services.Catalog;
 public interface IBookService
 {
     Task<Book> AddBookAsync(Book book);
-    Task DeleteBookAsync(Book book);
+    Task DeleteBookAsync(string id);
     Book GetBookDetails(string id);
     Task<Book> EditBookAsync(Book book);
 }

@@ -18,9 +18,14 @@ public class BookService : IBookService
         return await _bookGenericRepository.AddAsync(book);
     }
 
-    public async Task DeleteBookAsync(Book book)
+    public async Task DeleteBookAsync(string id)
     {
-        await _bookGenericRepository.DeleteAsync(book);
+        var book = _bookGenericRepository.GetById(id);
+        
+        if (book != null)
+        {
+            await _bookGenericRepository.DeleteAsync(book);
+        }
     }
 
     public Book GetBookDetails(string id)
