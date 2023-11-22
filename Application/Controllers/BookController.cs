@@ -35,6 +35,17 @@ public class BookController : Controller
 
         return RedirectToAction(nameof(Details), new { id = book.Id });
     }
+    
+    [HttpGet]
+    [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
+    public IActionResult Delete()
+    {
+        return View(new Book());
+    }
+    
+    [HttpPost]
+    [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
+    public IActionResult Delete(Book book)
     {
         return View(book);
     }
