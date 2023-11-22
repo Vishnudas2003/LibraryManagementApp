@@ -29,7 +29,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Setup and Installation
 
-#### Check [Current Feature - for what is being worked on](https://github.com/Developing-Developer2019/LibraryManagementApp/blob/Developing-Developer2019-patch-1/CURRENT_FEATURE.md)
+#### Check [Current Feature - for what is being worked on](https://github.com/Developing-Developer2019/LibraryManagementApp/blob/master/CURRENT_FEATURE.md)
 
 #### 1. Clone the repo:
    ```
