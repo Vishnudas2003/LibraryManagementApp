@@ -116,7 +116,7 @@
 }
 
 .vh-84 {
-  min-height: 84vh;
+  min-height: 87.3vh;
 }
 
 .authentication-form{
@@ -3630,8 +3630,8 @@ textarea.form-control-lg {
 }
 
 .dropdown-item:last-child{
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .dropdown-menu[data-bs-popper] {
