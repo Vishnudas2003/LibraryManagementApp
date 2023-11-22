@@ -61,6 +61,13 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T
             return dbEntity.Entity;
         }
 
+        public T? GetById(string id)
+        {
+            //Weirdness with async methods here, just use sync.
+            var entity = _context.Find<T>(id);
+            return entity == null || entity.IsDeleted ? null : entity;
+        }
+
         public T? GetById(int id)
         {
             //Weirdness with async methods here, just use sync.

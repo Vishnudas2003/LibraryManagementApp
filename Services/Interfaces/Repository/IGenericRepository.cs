@@ -12,6 +12,7 @@ public interface IGenericRepository<T>
         
     Task RemoveAsync(T entity);
         
+    T? GetById(string id);
     T? GetById(int id);
         
     IEnumerable<T> GetAll();
