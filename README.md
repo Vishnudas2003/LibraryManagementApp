@@ -34,7 +34,9 @@ These instructions will get you a copy of the project up and running on your loc
    git clone https://github.com/Developing-Developer2019/LibraryManagementApp
    ```
 #### 2. Open the project in your chosen IDE
-#### 3. Build and Run the Project to test it connects to Database. It should seed the database on first run.
+#### 3. Create a database in SQL Server called 'LibraryManagementApp'
+#### 4. Run a dotnet ef update which should create the tables and seed the database using the migrations. <strong>ALL USERS HAVE PASSWORD: 'Password01!'</strong>
+#### 5. Build and Run the Project to test it connects to Database. It should seed the database on first run.
 
 ## Contributing Guide
 Checkout the [CONTRIBUTING.md](https://github.com/Developing-Developer2019/LibraryManagementApp/blob/master/CONTRIBUTING.md) file for further information on Contributing.
