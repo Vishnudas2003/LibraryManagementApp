@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Core.Models.LoanManagement;
+using Core.Models.Shared;
 
 namespace Core.Models.Catalog;
 
-public class Book
+public class Book : BaseEntity
 {
-    [Key]
-    public string Id { get; set; }
     public string Isbn { get; set; } // International Standard Book Number, unique to each edition.
     public string Title { get; set; }
     public DateTime PublicationDateT { get; set; }

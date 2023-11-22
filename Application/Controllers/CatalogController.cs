@@ -22,9 +22,11 @@ public class CatalogController : Controller
     }
 
     [AllowAnonymous]
-    public async Task<IActionResult> Index(BookFilter bookFilter)
+    public async Task<IActionResult> FilterBooks(BookFilter bookFilter)
     {
         var books = await _catalogService.GetBooksAsync(bookFilter);
-        return View(books);
+        
+        //TODO: Add book filter to Book
+        return View("Index", books);
     }
 }

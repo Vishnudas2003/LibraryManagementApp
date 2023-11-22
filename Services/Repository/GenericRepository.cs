@@ -5,7 +5,7 @@ using Services.Interfaces.Repository;
 
 namespace Services.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T>
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext _context;
 

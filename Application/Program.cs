@@ -64,6 +64,7 @@ void ConfigureRepositories(WebApplicationBuilder builder)
 {
     builder.Services.AddTransient<IRoleRepository, RoleRepository<IdentityRole>>();
     builder.Services.AddTransient<ICatalogRepository, CatalogRepository>();
+    builder.Services.AddTransient<IGenericRepository<Book>, GenericRepository<Book>>();
 }
 
 void AddAuthorizationPolicies(WebApplicationBuilder builder)

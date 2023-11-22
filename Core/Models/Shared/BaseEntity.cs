@@ -2,11 +2,11 @@
 
 namespace Core.Models.Shared;
 
-public class BaseEntity<T>
+public class BaseEntity
 {
     [Key]
     [Display(Name = "Id")]
-    public T Id { get; set; }
+    public string Id { get; set; }
 
     [Display(Name = "Status")]
     public int StatusId { get; set; }

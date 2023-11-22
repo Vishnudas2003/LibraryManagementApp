@@ -101,7 +101,7 @@ namespace Data.Migrations
                             Id = "93c3a7ce-45c4-4be9-8cf5-9030c8748330",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6595),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2458),
                             Email = "administrator@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -119,7 +119,7 @@ namespace Data.Migrations
                             Id = "4d9c6f2f-0d3b-40f7-9e71-664c3276a413",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6661),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2648),
                             Email = "librarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -137,7 +137,7 @@ namespace Data.Migrations
                             Id = "13b2a13d-6001-477e-9859-f352097da7e7",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6674),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2689),
                             Email = "assistantlibrarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -155,7 +155,7 @@ namespace Data.Migrations
                             Id = "7e362909-2567-4e1f-a9ae-e57335eeb14d",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6684),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2696),
                             Email = "technicalstaff@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -173,7 +173,7 @@ namespace Data.Migrations
                             Id = "a93e2d70-15c0-4ec3-9534-0e4b82d25579",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6692),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2705),
                             Email = "patron@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -191,7 +191,7 @@ namespace Data.Migrations
                             Id = "f9526d05-d4ba-41d1-ae8f-e2375fdd7042",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6704),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2720),
                             Email = "researcher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -209,7 +209,7 @@ namespace Data.Migrations
                             Id = "697660f1-6b37-47d6-a0ea-bedce25e0688",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6712),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2883),
                             Email = "eventmanagement@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -227,7 +227,7 @@ namespace Data.Migrations
                             Id = "7e06c23c-10a0-435d-8e44-49e5f497cff2",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6720),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2893),
                             Email = "teacher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -245,7 +245,7 @@ namespace Data.Migrations
                             Id = "f32ec246-ba2c-4fd4-8fb3-3f7b42389f84",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 9, 9, 45, 44, 997, DateTimeKind.Local).AddTicks(6731),
+                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2900),
                             Email = "student@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -289,12 +289,24 @@ namespace Data.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDateT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateT")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Isbn")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDateT")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("PublicationDateT")
                         .HasColumnType("datetime2");
@@ -303,6 +315,9 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")

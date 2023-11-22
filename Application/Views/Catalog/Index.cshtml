@@ -1,1 +1,25 @@
-﻿
+﻿@model List<Core.Models.Catalog.Book>
+
+@{
+    ViewBag.Title = "Catalog";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Title</th>
+        <th>Quantity</th>
+        <th>Author</th>
+        <th>Publisher</th>
+        <th>Genre</th>
+    </tr>
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td><a asp-action="Details" asp-controller="Book">@book.Title</a></td>
+            <td>@book.Quantity</td>
+            <td>@book.Author</td>
+            <td>@book.Publisher.Name</td>
+            <td>@book.Genre.Name</td>
+        </tr>
+    }
+</table>
