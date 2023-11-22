@@ -6,7 +6,7 @@
 - Create classes that represent the entities in your database (e.g., Book, Author, Category).
 - Include properties in these classes that correspond to the columns in your database tables.
 - Use data annotations for validations and entity framework mappings if you are using Entity Framework.
-### 2. Set Up Data Access Layer
+### 2. Set Up Data Access Layer [COMPLETE]
 #### Branch name: Task/catalog-data-access
 - Create a repository layer for data access logic.
 - Implement methods for CRUD (Create, Read, Update, Delete) operations for each entity.
