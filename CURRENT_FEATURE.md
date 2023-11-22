@@ -11,11 +11,11 @@
 - Create a repository layer for data access logic.
 - Implement methods for CRUD (Create, Read, Update, Delete) operations for each entity.
 - If using Entity Framework, this would involve creating DbContext and DbSet for your entities.
-### 3. Business Logic Layer
+### 3. Business Logic Layer [COMPLETE]
 #### Branch name: Task/catalog-business-logic
 - Create services or business logic classes that will use the repository layer to perform operations.
 - Implement the logic for catalog management, like adding new books, searching the catalog, updating book details, etc.
-### 4. Create API or User Interface
+### 4. Create API or User Interface [ACTIVE]
 #### Branch name: Task/catalog-user-interface
 - If you are making a web-based system, create API controllers for handling HTTP requests.
 - If it's a desktop application, design the user interface forms.
