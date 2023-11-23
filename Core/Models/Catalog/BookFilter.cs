@@ -10,5 +10,6 @@ public class BookFilter
     public string? AuthorFirstName { get; set; }
     public string? AuthorLastName { get; set; }
     public string? Publisher { get; set; }
-    public string? Genre { get; set; }
+    public int? GenreId { get; set; }
+    public List<Genre> Genres { get; set; }
 }

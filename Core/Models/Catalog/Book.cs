@@ -21,10 +21,10 @@ public class Book : BaseEntity
     public Genre Genre { get; set; }
     
     [ForeignKey("AuthorId")]
-    public Author Author { get; set; }
+    public Author? Author { get; set; }
     
     [ForeignKey("PublisherId")]
-    public Publisher Publisher { get; set; }
+    public Publisher? Publisher { get; set; }
     
     // Collection
     public ICollection<Loan> Loans { get; set; }
@@ -32,4 +32,7 @@ public class Book : BaseEntity
 
     [NotMapped]
     public AlertViewModel AlertViewModel { get; set; }
+    
+    [NotMapped]
+    public List<Genre> Genres { get; set; }
 }

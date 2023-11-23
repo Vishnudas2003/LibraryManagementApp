@@ -29,7 +29,11 @@ public class CatalogService : ICatalogService
             Books = await booksQuery
                 .Where(e=> e.IsDeleted == false || e.StatusId != 0)
                 .ToListAsync(),
-            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal)
+            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal),
+            BookFilter = new BookFilter
+            {
+                Genres = _applicationDbContext.Genre.ToList()
+            }
         };
 
         return catalogViewModel;
@@ -54,9 +58,9 @@ public class CatalogService : ICatalogService
             booksQuery = ApplyFilter(booksQuery, b => b.Publisher.Name.Contains(bookFilter.Publisher));
         }
 
-        if (!string.IsNullOrEmpty(bookFilter.Genre))
+        if (bookFilter.GenreId.HasValue)
         {
-            booksQuery = ApplyFilter(booksQuery, b => b.Genre.Name.Contains(bookFilter.Genre));
+            booksQuery = ApplyFilter(booksQuery, b => b.GenreId == bookFilter.GenreId);
         }
 
         if (!string.IsNullOrEmpty(bookFilter.Isbn))
@@ -91,6 +95,7 @@ public class CatalogService : ICatalogService
             BookFilter = bookFilter
         };
 
+        bookFilter.Genres = _applicationDbContext.Genre.ToList();
         return catalogViewModel;
     }
 
