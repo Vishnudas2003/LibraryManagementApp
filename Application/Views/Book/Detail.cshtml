@@ -1,0 +1,101 @@
+﻿@model Core.Models.Catalog.VM.BookDetailViewModel
+
+@{
+    ViewBag.Title = $"Details for {Model.Book?.Title}";
+}
+
+<div class="container py-3 vh-84">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Catalog">Catalog</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Book Details</li>
+        </ol>
+    </nav>
+    
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2 offset-md-8">
+                    @if (Model.IsEmployee)
+                    {
+                        <a asp-action="Edit" asp-controller="Book" asp-route-id="@Model.Book?.Id" class="btn btn-primary w-100">Edit</a>
+                    }
+                </div>
+                <div class="col-md-2">
+                    <a asp-action="Edit" asp-controller="Book" asp-route-id="@Model.Book?.Id" class="btn btn-primary disabled w-100">Reserve</a>
+                </div>
+                <hr class="my-3"/>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <dl class="p-3">
+                        <div class="row">
+                            <h3>Book Details</h3>
+                            <div class="col-md-12">
+                                <dt>Title</dt>
+                                <dd>@Model.Book?.Title</dd>
+                            </div>
+                            <div class="col-md-4">
+                                <dt>ISBN</dt>
+                                <dd>@Model.Book?.Isbn</dd>
+                            </div>
+                            <div class="col-md-4">
+                                <dt>Publication Date</dt>
+                                <dd>@Model.Book?.PublicationDateT.ToShortDateString()</dd>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <dt>Genre</dt>
+                                <dd>@Model.Book?.Genre.Name</dd>
+                            </div>
+                            <div class="col-md-4">
+                                <dt>Quantity</dt>
+                                <dd>@Model.Book?.Quantity</dd>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <dt>Loans</dt>
+                                <dd>@Model.Book?.Loans.Count</dd>
+                            </div>
+                            <div class="col-md-4">
+                                <dt>Reservations</dt>
+                                <dd>@Model.Book?.Reservations.Count</dd>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr class="my-3"/>
+                            <h3>Author Details</h3>
+                            <div class="col-md-4">
+                                <dt>Name</dt>
+                                <dd>@Model.Book?.Author.FirstName @Model.Book?.Author.LastName</dd>
+                            </div>
+                            <div class="col-md-4">
+                                <dt>Books</dt>
+                                <dd>@Model.Book?.Author.Books.Count</dd>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr class="my-3"/>
+                            <h3>Publisher Details</h3>
+                            <div class="col-md-4">
+                                <dt>Name</dt>
+                                <dd>@Model.Book?.Publisher.Name</dd>
+                            </div>
+                            <div class="col-md-4">
+                                <dt>Books</dt>
+                                <dd>@Model.Book?.Publisher.Books.Count</dd>
+                            </div>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

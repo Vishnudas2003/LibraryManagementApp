@@ -12,4 +12,7 @@ public static class StringConstants
     // Login
     public static string LoginFailure = "Username, Email or Password are incorrect. Please try again.";
     public static string VerifyEmail = "Please verify email then log in.";
+    
+    // Book
+    public static string BookUpdateFailure = "Book failed to update.";
 }

@@ -18,11 +18,13 @@ public class CatalogService : ICatalogService
 
     public async Task<CatalogViewModel> GetBooksAsync()
     {
-        IQueryable<Book> booksQuery = ApplyCommonIncludes(_applicationDbContext.Book);
+        var booksQuery = ApplyCommonIncludes(_applicationDbContext.Book);
 
         CatalogViewModel catalogViewModel = new()
         {
-            Books = await booksQuery.ToListAsync()
+            Books = await booksQuery
+                .Where(e=> e.IsDeleted == false || e.StatusId != 0)
+                .ToListAsync()
         };
 
         return catalogViewModel;
@@ -82,12 +84,12 @@ public class CatalogService : ICatalogService
         return catalogViewModel;
     }
 
-    private IQueryable<Book> ApplyCommonIncludes(IQueryable<Book> query)
+    private IQueryable<Book> ApplyCommonIncludes(IEnumerable<Book> query)
     {
-        return query.AsQueryable()
-            .Include(e => e.Publisher)
-            .Include(e => e.Author)
-            .Include(e => e.Genre);
+        return query.AsQueryable().Where(e => e.StatusId != 0 && e.IsDeleted == false)
+            .Include(e => e.Publisher).Where(e => e.StatusId != 0 && e.IsDeleted == false)
+            .Include(e => e.Author).Where(e => e.StatusId != 0 && e.IsDeleted == false)
+            .Include(e => e.Genre).Where(e => e.StatusId != 0 && e.IsDeleted == false);
     }
 
     private IQueryable<Book> ApplyFilter(IQueryable<Book> query, Expression<Func<Book, bool>> filter)

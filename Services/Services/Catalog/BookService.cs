@@ -1,6 +1,10 @@
-﻿using Core.Enums;
+﻿using Core.Constants;
+using Core.Enums;
 using Core.Models.Catalog;
+using Core.Models.Catalog.VM;
+using Core.Models.Shared;
 using Data.Data;
+using Microsoft.EntityFrameworkCore;
 using Services.Interfaces.Repository;
 using Services.Interfaces.Services.Catalog;
 
@@ -32,7 +36,9 @@ public class BookService : IBookService
 
     public async Task DeleteBookAsync(string id)
     {
-        var book = _bookGenericRepository.GetById(id);
+        var book = await _applicationDbContext.Book
+            .Where(e => e.Id == id)
+            .FirstOrDefaultAsync();
         
         if (book != null)
         {
@@ -40,13 +46,39 @@ public class BookService : IBookService
         }
     }
 
-    public Book GetBookDetails(string id)
+    public async Task<BookDetailViewModel> GetBookDetailsAsync(string id)
     {
-        return _bookGenericRepository.GetById(id) ?? new Book();
+        var bookDetailViewModel = new BookDetailViewModel
+        {
+            Book = await _applicationDbContext.Book
+                .Include(e => e.Loans)
+                .Include(e => e.Reservations)
+                .Include(e => e.Author).ThenInclude(e => e.Books)
+                .Include(e => e.Publisher).ThenInclude(e => e.Books)
+                .Include(e => e.Genre).ThenInclude(e => e.Books)
+                .FirstOrDefaultAsync()
+        };
+
+        return bookDetailViewModel;
     }
 
     public async Task<Book> EditBookAsync(Book book)
     {
-        return await _bookGenericRepository.UpdateAsync(book);
+        var result = _applicationDbContext.Book.Update(book);
+        await _applicationDbContext.SaveChangesAsync();
+        if (result.State == EntityState.Modified)
+        {
+            book.AlertViewModel.IsSuccess = true;
+        }
+        else
+        {
+            book.AlertViewModel = new AlertViewModel
+            {
+                IsSuccess = false,
+                Message = StringConstants.BookUpdateFailure
+            };
+        }
+
+        return book;
     }
 }

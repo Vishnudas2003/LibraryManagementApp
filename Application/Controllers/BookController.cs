@@ -8,10 +8,12 @@ namespace Application.Controllers;
 public class BookController : Controller
 {
     private readonly IBookService _bookService;
+    private readonly Services.Interfaces.Services.Authorization.IAuthorizationService _authorizationService;
 
-    public BookController(IBookService bookService)
+    public BookController(IBookService bookService, Services.Interfaces.Services.Authorization.IAuthorizationService authorizationService)
     {
         _bookService = bookService;
+        _authorizationService = authorizationService;
     }
 
     [HttpGet]
@@ -32,10 +34,10 @@ public class BookController : Controller
             return View(book);
         }
 
-        return RedirectToAction(nameof(Details), new { id = book.Id });
+        return RedirectToAction(nameof(Detail), new { id = book.Id });
     }
     
-    [HttpPost]
+    [HttpGet]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public async Task<IActionResult> Delete(string id)
     {
@@ -48,7 +50,7 @@ public class BookController : Controller
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public IActionResult Edit(string id)
     {
-        return View(_bookService.GetBookDetails(id));
+        return View(_bookService.GetBookDetailsAsync(id));
     }
     
     [HttpPost]
@@ -56,16 +58,22 @@ public class BookController : Controller
     public async Task<IActionResult> Edit(Book book)
     {
         var updatedBook = await _bookService.EditBookAsync(book);
-        
-        // TODO: Add redirect to edit view if errormessage exists
 
-        return RedirectToAction(nameof(Details), new { id = book.Id });
+        if (string.IsNullOrWhiteSpace(updatedBook.AlertViewModel.Message))
+        {
+            return RedirectToAction(nameof(Detail), new { id = book.Id });
+        }
+
+        return View(book);
     }
 
     [HttpGet]
     [AllowAnonymous]
-    public IActionResult Details(string id)
+    public async Task<IActionResult> Detail(string id)
     {
-        return View(_bookService.GetBookDetails(id));
+        var bookDetailViewModel = await _bookService.GetBookDetailsAsync(id);
+        bookDetailViewModel.IsEmployee = _authorizationService.IsEmployee(User);
+        
+        return View(bookDetailViewModel);
     }
 }

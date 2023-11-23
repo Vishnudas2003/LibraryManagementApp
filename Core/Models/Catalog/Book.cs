@@ -29,4 +29,7 @@ public class Book : BaseEntity
     // Collection
     public ICollection<Loan> Loans { get; set; }
     public ICollection<Reservation> Reservations { get; set; }
+
+    [NotMapped]
+    public AlertViewModel AlertViewModel { get; set; }
 }

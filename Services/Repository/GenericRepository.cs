@@ -37,6 +37,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
             if (entity == null) throw new InvalidOperationException("Cannot delete a null object!");
             //We do a soft delete, just update it.
             entity.IsDeleted = true;
+            entity.StatusId = 0;
             entity.DeletedDateT = DateTime.UtcNow;
             await UpdateAsync(entity);
         }
