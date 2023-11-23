@@ -8,19 +8,16 @@ namespace Application.Controllers;
 public class CatalogController : Controller
 {
     private readonly ICatalogService _catalogService;
-    private readonly Services.Interfaces.Services.Authorization.IAuthorizationService _authorizationService;
 
-    public CatalogController(ICatalogService catalogService, Services.Interfaces.Services.Authorization.IAuthorizationService authorizationService)
+    public CatalogController(ICatalogService catalogService)
     {
         _catalogService = catalogService;
-        _authorizationService = authorizationService;
     }
 
     [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
-        var catalogViewModel = await _catalogService.GetBooksAsync();
-        catalogViewModel.IsEmployee = _authorizationService.IsEmployee(User);
+        var catalogViewModel = await _catalogService.GetBooksAsync(User);
         
         return View(catalogViewModel);
     }
@@ -28,9 +25,7 @@ public class CatalogController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> FilterBooks(BookFilter bookFilter)
     {
-        var catalogViewModel = await _catalogService.GetBooksAsync(bookFilter);
-        catalogViewModel.IsEmployee = _authorizationService.IsEmployee(User);
-        catalogViewModel.BookFilter = bookFilter;
+        var catalogViewModel = await _catalogService.GetBooksAsync(bookFilter, User);
         return View("Index", catalogViewModel);
     }
 }

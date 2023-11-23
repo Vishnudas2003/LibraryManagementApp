@@ -8,12 +8,10 @@ namespace Application.Controllers;
 public class BookController : Controller
 {
     private readonly IBookService _bookService;
-    private readonly Services.Interfaces.Services.Authorization.IAuthorizationService _authorizationService;
 
-    public BookController(IBookService bookService, Services.Interfaces.Services.Authorization.IAuthorizationService authorizationService)
+    public BookController(IBookService bookService)
     {
         _bookService = bookService;
-        _authorizationService = authorizationService;
     }
 
     [HttpGet]
@@ -34,6 +32,7 @@ public class BookController : Controller
             return View(book);
         }
 
+        ViewBag.SuccessMessage = "Book added successfully!";
         return RedirectToAction(nameof(Detail), new { id = book.Id });
     }
     
@@ -42,38 +41,40 @@ public class BookController : Controller
     public async Task<IActionResult> Delete(string id)
     {
         await _bookService.DeleteBookAsync(id);
-
+        ViewBag.SuccessMessage = "Book deleted successfully!";
         return RedirectToAction(nameof(Index), "Catalog");
     }
     
     [HttpGet]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
-    public IActionResult Edit(string id)
+    public async Task<IActionResult> Edit(string id)
     {
-        return View(_bookService.GetBookDetailsAsync(id));
+        var bookDetailViewModel = await _bookService.GetBookDetailsAsync(id, User);
+        return View(bookDetailViewModel);
     }
     
     [HttpPost]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public async Task<IActionResult> Edit(Book book)
     {
-        var updatedBook = await _bookService.EditBookAsync(book);
-
-        if (string.IsNullOrWhiteSpace(updatedBook.AlertViewModel.Message))
+        if (!ModelState.IsValid)
         {
-            return RedirectToAction(nameof(Detail), new { id = book.Id });
+            return View(book);
         }
 
-        return View(book);
+        var updatedBook = await _bookService.EditBookAsync(book);
+
+        if (!string.IsNullOrWhiteSpace(updatedBook.AlertViewModel.Message)) return View(book);
+        
+        ViewBag.SuccessMessage = "Book updated successfully!";
+        return RedirectToAction(nameof(Detail), new { id = book.Id });
     }
 
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> Detail(string id)
     {
-        var bookDetailViewModel = await _bookService.GetBookDetailsAsync(id);
-        bookDetailViewModel.IsEmployee = _authorizationService.IsEmployee(User);
-        
+        var bookDetailViewModel = await _bookService.GetBookDetailsAsync(id, User);
         return View(bookDetailViewModel);
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231122161017_Initial")]
-    partial class Initial
+    [Migration("20231123145924_SeedBookLinks")]
+    partial class SeedBookLinks
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,7 +104,7 @@ namespace Data.Migrations
                             Id = "93c3a7ce-45c4-4be9-8cf5-9030c8748330",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2458),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7578),
                             Email = "administrator@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -122,7 +122,7 @@ namespace Data.Migrations
                             Id = "4d9c6f2f-0d3b-40f7-9e71-664c3276a413",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2648),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7654),
                             Email = "librarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -140,7 +140,7 @@ namespace Data.Migrations
                             Id = "13b2a13d-6001-477e-9859-f352097da7e7",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2689),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7662),
                             Email = "assistantlibrarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -158,7 +158,7 @@ namespace Data.Migrations
                             Id = "7e362909-2567-4e1f-a9ae-e57335eeb14d",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2696),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7723),
                             Email = "technicalstaff@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -176,7 +176,7 @@ namespace Data.Migrations
                             Id = "a93e2d70-15c0-4ec3-9534-0e4b82d25579",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2705),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7733),
                             Email = "patron@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -194,7 +194,7 @@ namespace Data.Migrations
                             Id = "f9526d05-d4ba-41d1-ae8f-e2375fdd7042",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2720),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7740),
                             Email = "researcher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -212,7 +212,7 @@ namespace Data.Migrations
                             Id = "697660f1-6b37-47d6-a0ea-bedce25e0688",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2883),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7747),
                             Email = "eventmanagement@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -230,7 +230,7 @@ namespace Data.Migrations
                             Id = "7e06c23c-10a0-435d-8e44-49e5f497cff2",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2893),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7754),
                             Email = "teacher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -248,7 +248,7 @@ namespace Data.Migrations
                             Id = "f32ec246-ba2c-4fd4-8fb3-3f7b42389f84",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 22, 16, 10, 17, 476, DateTimeKind.Local).AddTicks(2900),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 59, 24, 38, DateTimeKind.Local).AddTicks(7760),
                             Email = "student@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -282,6 +282,14 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Author");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "AK",
+                            LastName = "Howard"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.Catalog.Book", b =>
@@ -346,6 +354,9 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("GenreType")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -353,6 +364,68 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genre");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GenreType = 1,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GenreType = 1,
+                            Name = "Thriller"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GenreType = 1,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            GenreType = 1,
+                            Name = "Historical Fiction"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            GenreType = 1,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            GenreType = 1,
+                            Name = "Science Fiction"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            GenreType = 1,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            GenreType = 1,
+                            Name = "Dystopian"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            GenreType = 1,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            GenreType = 1,
+                            Name = "Young Adult (YA)"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.Catalog.Publisher", b =>
@@ -370,6 +443,13 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Publisher");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Footnail Press"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.Fine.Fines", b =>

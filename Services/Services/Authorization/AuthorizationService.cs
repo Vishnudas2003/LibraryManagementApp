@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Core.Enums;
 using Core.Models.Account;
 using Microsoft.AspNetCore.Identity;
 using Services.Interfaces.Services.Authorization;
@@ -14,17 +15,20 @@ public class AuthorizationService : IAuthorizationService
         _signInManager = signInManager;
     }
 
-    public bool IsEmployee(ClaimsPrincipal claimsPrincipal)
+    public bool IsSignedIn(ClaimsPrincipal claimsPrincipal)
     {
-        var isSignedIn = _signInManager.IsSignedIn(claimsPrincipal);
+        return _signInManager.IsSignedIn(claimsPrincipal);
+    }
 
-        if (!isSignedIn) return false;
-        
-        var isLibrarian = claimsPrincipal.IsInRole("Librarian");
-        var isAssistantLibrarian = claimsPrincipal.IsInRole("AssistantLibrarian");
-        var isAdministrator = claimsPrincipal.IsInRole("Administrator");
+    public bool IsLibraryStaff(ClaimsPrincipal claimsPrincipal)
+    {
+        if (claimsPrincipal == null)
+        {
+            throw new ArgumentNullException(nameof(claimsPrincipal));
+        }
 
-        return isLibrarian || isAssistantLibrarian || isAdministrator;
-
+        return claimsPrincipal.IsInRole(UserRoles.Librarian.ToString()) ||
+               claimsPrincipal.IsInRole(UserRoles.AssistantLibrarian.ToString()) ||
+               claimsPrincipal.IsInRole(UserRoles.Administrator.ToString());
     }
 }

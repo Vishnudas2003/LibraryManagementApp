@@ -4,19 +4,23 @@ using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces.Services.Catalog;
 using System.Linq.Expressions;
+using System.Security.Claims;
+using Services.Interfaces.Services.Authorization;
 
 namespace Services.Services.Catalog;
 
 public class CatalogService : ICatalogService
 {
     private readonly ApplicationDbContext _applicationDbContext;
+    private readonly IAuthorizationService _authorizationService;
 
-    public CatalogService(ApplicationDbContext applicationDbContext)
+    public CatalogService(ApplicationDbContext applicationDbContext, IAuthorizationService authorizationService)
     {
         _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
+        _authorizationService = authorizationService;
     }
 
-    public async Task<CatalogViewModel> GetBooksAsync()
+    public async Task<CatalogViewModel> GetBooksAsync(ClaimsPrincipal claimsPrincipal)
     {
         var booksQuery = ApplyCommonIncludes(_applicationDbContext.Book);
 
@@ -24,21 +28,25 @@ public class CatalogService : ICatalogService
         {
             Books = await booksQuery
                 .Where(e=> e.IsDeleted == false || e.StatusId != 0)
-                .ToListAsync()
+                .ToListAsync(),
+            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal)
         };
 
         return catalogViewModel;
     }
 
-    public async Task<CatalogViewModel> GetBooksAsync(BookFilter bookFilter)
+    public async Task<CatalogViewModel> GetBooksAsync(BookFilter bookFilter, ClaimsPrincipal claimsPrincipal)
     {
         var booksQuery = ApplyCommonIncludes(_applicationDbContext.Book);
 
-        if (!string.IsNullOrEmpty(bookFilter.AuthorFirstName) || !string.IsNullOrEmpty(bookFilter.AuthorLastName))
+        if (!string.IsNullOrEmpty(bookFilter.AuthorFirstName))
         {
-            booksQuery = ApplyFilter(booksQuery, b =>
-                b.Author.FirstName.Contains(bookFilter.AuthorFirstName ?? string.Empty) ||
-                b.Author.LastName.Contains(bookFilter.AuthorLastName ?? string.Empty));
+            booksQuery = ApplyFilter(booksQuery, b => b.Author.FirstName.Contains(bookFilter.AuthorFirstName));
+        }
+
+        if (!string.IsNullOrEmpty(bookFilter.AuthorLastName))
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.Author.LastName.Contains(bookFilter.AuthorLastName));
         }
 
         if (!string.IsNullOrEmpty(bookFilter.Publisher))
@@ -73,12 +81,14 @@ public class CatalogService : ICatalogService
 
         if (bookFilter.Quantity != null)
         {
-            booksQuery = ApplyFilter(booksQuery, b => b.Quantity >= bookFilter.Quantity);
+            booksQuery = ApplyFilter(booksQuery, b => b.Quantity == bookFilter.Quantity);
         }
 
         CatalogViewModel catalogViewModel = new()
         {
-            Books = await booksQuery.ToListAsync()
+            Books = await booksQuery.ToListAsync(),
+            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal),
+            BookFilter = bookFilter
         };
 
         return catalogViewModel;

@@ -20,10 +20,4 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
     </ItemGroup>
-
-
-
-    <ItemGroup>
-      <Folder Include="Views\Book\Partials\Detail\" />
-    </ItemGroup>
 </Project>

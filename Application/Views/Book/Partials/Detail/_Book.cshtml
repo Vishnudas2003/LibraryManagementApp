@@ -1,0 +1,38 @@
+﻿@model Core.Models.Catalog.Book
+
+<div class="row">
+    <h3>Book Details</h3>
+    <div class="col-md-12">
+        <dt>Title</dt>
+        <dd>@Model.Title</dd>
+    </div>
+    <div class="col-md-4">
+        <dt>ISBN</dt>
+        <dd>@Model.Isbn</dd>
+    </div>
+    <div class="col-md-4">
+        <dt>Publication Date</dt>
+        <dd>@Model.PublicationDateT.ToShortDateString()</dd>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <dt>Genre</dt>
+        <dd>@Model.Genre.Name</dd>
+    </div>
+    <div class="col-md-4">
+        <dt>Quantity</dt>
+        <dd>@Model.Quantity</dd>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <dt>Loans</dt>
+        <dd>@Model.Loans.Count</dd>
+    </div>
+    <div class="col-md-4">
+        <dt>Reservations</dt>
+        <dd>@Model.Reservations.Count</dd>
+    </div>
+</div>
