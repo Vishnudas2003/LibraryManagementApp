@@ -1,11 +1,12 @@
 ﻿using Core.Constants;
-using Core.Models.Account.ViewModels;
+using Core.Models.Account.VM;
 using Core.Models.Shared;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces.Services;
+using Services.Interfaces.Services.Authorization;
 
 namespace Application.Controllers;
 

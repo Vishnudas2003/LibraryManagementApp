@@ -1,6 +1,6 @@
 ﻿using Core.Models.Shared;
 
-namespace Core.Models.Account.ViewModels;
+namespace Core.Models.Account.VM;
 
 public class ProfileViewModel
 {

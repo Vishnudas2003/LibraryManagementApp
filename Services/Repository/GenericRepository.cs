@@ -1,10 +1,11 @@
 ﻿using Core.Models.Shared;
 using Data.Data;
+using Microsoft.EntityFrameworkCore;
 using Services.Interfaces.Repository;
 
 namespace Services.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T>
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext _context;
 
@@ -36,6 +37,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T
             if (entity == null) throw new InvalidOperationException("Cannot delete a null object!");
             //We do a soft delete, just update it.
             entity.IsDeleted = true;
+            entity.StatusId = 0;
             entity.DeletedDateT = DateTime.UtcNow;
             await UpdateAsync(entity);
         }
@@ -60,6 +62,13 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T
             return dbEntity.Entity;
         }
 
+        public T? GetById(string id)
+        {
+            //Weirdness with async methods here, just use sync.
+            var entity = _context.Find<T>(id);
+            return entity == null || entity.IsDeleted ? null : entity;
+        }
+
         public T? GetById(int id)
         {
             //Weirdness with async methods here, just use sync.
@@ -70,5 +79,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>().Where(t => !t.IsDeleted).ToList();
+        }
+        
+        public async Task<List<T>> GetAllAsync()
+        {
+            return await _context.Set<T>().Where(t => !t.IsDeleted).ToListAsync();
         }
     }

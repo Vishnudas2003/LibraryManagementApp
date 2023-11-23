@@ -2,11 +2,12 @@
 using Core.Enums;
 using Core.Features;
 using Core.Models.Account;
-using Core.Models.Account.ViewModels;
+using Core.Models.Account.VM;
 using Microsoft.AspNetCore.Identity;
 using Services.Interfaces.Services;
+using Services.Interfaces.Services.Authorization;
 
-namespace Services.Services;
+namespace Services.Services.Authorization;
 
 public class RegisterService : IRegisterService
 {

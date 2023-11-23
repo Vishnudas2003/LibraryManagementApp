@@ -1,0 +1,44 @@
+﻿@model Core.Models.Catalog.VM.BookDetailViewModel
+
+@{
+    ViewBag.Title = $"Details for {Model.Book?.Title}";
+}
+
+<div class="container py-3 vh-84">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Catalog">Catalog</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Book Details</li>
+        </ol>
+    </nav>
+    
+    <partial name="/Views/Shared/Partials/_SuccessAlert.cshtml"/>
+    
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2 offset-md-8">
+                    @if (Model.IsEmployee)
+                    {
+                        <a asp-action="Edit" asp-controller="Book" asp-route-id="@Model.Book?.Id" class="btn btn-primary w-100">Edit</a>
+                    }
+                </div>
+                <div class="col-md-2">
+                    <a asp-action="Edit" asp-controller="Book" asp-route-id="@Model.Book?.Id" class="btn btn-primary disabled w-100">Reserve</a>
+                </div>
+                <hr class="my-3"/>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <dl class="p-3">
+                        <partial name="Partials/Detail/_Book" model="Model.Book"/>
+                        <partial name="Partials/Detail/_Author" model="Model.Book.Author"/>
+                        <partial name="Partials/Detail/_Publisher" model="Model.Book.Publisher"/>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

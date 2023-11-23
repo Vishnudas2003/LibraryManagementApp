@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Core.Models.LoanManagement;
+using Core.Models.Shared;
 
 namespace Core.Models.Catalog;
 
-public class Book
+public class Book : BaseEntity
 {
-    [Key]
-    public string Id { get; set; }
     public string Isbn { get; set; } // International Standard Book Number, unique to each edition.
     public string Title { get; set; }
     public DateTime PublicationDateT { get; set; }
@@ -23,12 +21,18 @@ public class Book
     public Genre Genre { get; set; }
     
     [ForeignKey("AuthorId")]
-    public Author Author { get; set; }
+    public Author? Author { get; set; }
     
     [ForeignKey("PublisherId")]
-    public Publisher Publisher { get; set; }
+    public Publisher? Publisher { get; set; }
     
     // Collection
     public ICollection<Loan> Loans { get; set; }
     public ICollection<Reservation> Reservations { get; set; }
+
+    [NotMapped]
+    public AlertViewModel AlertViewModel { get; set; }
+    
+    [NotMapped]
+    public List<Genre> Genres { get; set; }
 }

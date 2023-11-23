@@ -1,5 +1,6 @@
 ﻿using Data.Data.Configure;
 using Data.Data.Seed.Account;
+using Data.Data.Seed.Book;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Data;
@@ -21,5 +22,9 @@ public static class ModelBuilderExtensions
         modelBuilder.SeedRoles();
         modelBuilder.SeedAccounts();
         modelBuilder.SeedUserRoles();
+        modelBuilder.SeedGenres();
+        modelBuilder.SeedAuthors();
+        modelBuilder.SeedPublishers();
+        modelBuilder.SeedBooks();
     }
 }

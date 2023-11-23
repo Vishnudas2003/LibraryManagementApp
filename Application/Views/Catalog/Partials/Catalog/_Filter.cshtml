@@ -1,0 +1,90 @@
+﻿@model Core.Models.Catalog.BookFilter
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="catalogFilter" aria-labelledby="catalogFilterLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Catalog Filters</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form asp-action="FilterBooks" asp-controller="Catalog" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Title</label>
+                        <input asp-for="Title" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label asp-for="Isbn" class="form-label">ISBN</label>
+                        <input asp-for="Isbn" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="PublicationStartDateT" class="form-label">Start Date</label>
+                        <input asp-for="PublicationStartDateT" type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="PublicationEndDateT" class="form-label">End Date</label>
+                        <input asp-for="PublicationEndDateT" type="date" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label asp-for="Quantity" class="form-label">Quantity</label>
+                        <input asp-for="Quantity" type="number" min="0" max="9999" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        <label asp-for="GenreId" class="form-label">Genre</label>
+                        <select class="form-select" asp-for="GenreId" aria-label="Default select example">
+                            <option class="disabled" selected>Select Genre</option>
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <option value="@genre.Id">@genre.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="AuthorFirstName" class="form-label">Author Forename</label>
+                        <input asp-for="AuthorFirstName" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="AuthorLastName" class="form-label">Author Surname</label>
+                        <input asp-for="AuthorLastName" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="btn btn-primary btn-lg w-100" type="submit" value="Search"/>
+                </div>
+                <div class="col-md-6">
+                    <input class="btn btn-primary btn-lg w-100" type="reset" value="Reset"/>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
