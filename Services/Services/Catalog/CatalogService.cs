@@ -19,7 +19,11 @@ public class CatalogService : ICatalogService
 
     public async Task<List<Book>> GetBooksAsync()
     {
-        return await _bookGenericRepository.GetAllAsync();
+        return await _applicationDbContext.Book
+            .Include(e => e.Publisher)
+            .Include(e => e.Author)
+            .Include(e => e.Genre)
+            .ToListAsync();
     }
 
     public async Task<List<Book>> GetBooksAsync(BookFilter bookFilter)
@@ -39,9 +43,9 @@ public class CatalogService : ICatalogService
 
     private IQueryable<Book> ApplyAuthorFilter(IQueryable<Book> query, BookFilter filter)
     {
-        if (string.IsNullOrEmpty(filter.AuthorFirstName) && string.IsNullOrEmpty(filter.AuthorLastName)) 
+        if (string.IsNullOrEmpty(filter.AuthorFirstName) && string.IsNullOrEmpty(filter.AuthorLastName))
             return query;
-        
+
         var author = _applicationDbContext.Author.FirstOrDefault(a =>
             a.FirstName.Contains(filter.AuthorFirstName ?? string.Empty) ||
             a.LastName.Contains(filter.AuthorLastName ?? string.Empty));
@@ -55,9 +59,9 @@ public class CatalogService : ICatalogService
 
     private IQueryable<Book> ApplyPublisherFilter(IQueryable<Book> query, BookFilter filter)
     {
-        if (string.IsNullOrEmpty(filter.Publisher)) 
+        if (string.IsNullOrEmpty(filter.Publisher))
             return query;
-        
+
         var publisher = _applicationDbContext.Publisher.FirstOrDefault(p =>
             p.Name.Contains(filter.Publisher));
 
@@ -70,9 +74,9 @@ public class CatalogService : ICatalogService
 
     private IQueryable<Book> ApplyGenreFilter(IQueryable<Book> query, BookFilter filter)
     {
-        if (string.IsNullOrEmpty(filter.Genre)) 
+        if (string.IsNullOrEmpty(filter.Genre))
             return query;
-        
+
         var genre = _applicationDbContext.Genre.FirstOrDefault(g =>
             g.Name.Contains(filter.Genre));
 

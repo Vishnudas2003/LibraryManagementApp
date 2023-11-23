@@ -1,25 +1,47 @@
-﻿@model List<Core.Models.Catalog.Book>
+﻿@using Core.Models.Catalog
+@model List<Core.Models.Catalog.Book>
 
 @{
     ViewBag.Title = "Catalog";
+    var bookFilter = new BookFilter();
 }
 
-<table class="table table-bordered">
-    <tr>
-        <th>Title</th>
-        <th>Quantity</th>
-        <th>Author</th>
-        <th>Publisher</th>
-        <th>Genre</th>
-    </tr>
-    @foreach (var book in Model)
-    {
-        <tr>
-            <td><a asp-action="Details" asp-controller="Book">@book.Title</a></td>
-            <td>@book.Quantity</td>
-            <td>@book.Author</td>
-            <td>@book.Publisher.Name</td>
-            <td>@book.Genre.Name</td>
-        </tr>
-    }
-</table>
+<partial name="Partials/Catalog/_Filter" model="bookFilter"/>
+
+<div class="container vh-84 mt-3">
+    <div class="card">
+        <div class="card-body">
+            <div class="row mt-3 g-2">
+                <div class="offset-md-8 col-md-2 text-end mt-md-0">
+                    <a asp-action="Add" asp-controller="Book" class="btn btn-primary w-100">Add Book</a>
+                </div>
+                <div class="col-md-2 text-end mt-3 mt-md-0">
+                    <a class="btn btn-secondary w-100" data-bs-toggle="offcanvas" data-bs-target="#catalogFilter" aria-controls="catalogFilter">Filters</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered mt-3">
+                    <tr class="text-center">
+                        <th>Title</th>
+                        <th>Quantity</th>
+                        <th>Author</th>
+                        <th>Year</th>
+                        <th>Genre</th>
+                    </tr>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="Details" asp-controller="Book">@book.Title</a>
+                            </td>
+                            <td class="text-center">@book.Quantity</td>
+                            <td>@book.Author.FirstName @book.Author.LastName</td>
+                            <td class="text-center">@book.PublicationDateT.Year</td>
+                            <td class="text-center">@book.Genre.Name</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
