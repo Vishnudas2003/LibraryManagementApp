@@ -1,34 +1,36 @@
-﻿using Core.Constants;
-using Core.Enums;
+﻿using System.Security.Claims;
+using Core.Constants;
+using Microsoft.EntityFrameworkCore;
 using Core.Models.Catalog;
 using Core.Models.Catalog.VM;
 using Core.Models.Shared;
 using Data.Data;
-using Microsoft.EntityFrameworkCore;
-using Services.Interfaces.Repository;
+using Services.Interfaces.Services.Authorization;
 using Services.Interfaces.Services.Catalog;
+using Core.Enums;
 
 namespace Services.Services.Catalog;
 
 public class BookService : IBookService
 {
-    private readonly IGenericRepository<Book> _bookGenericRepository;
     private readonly ApplicationDbContext _applicationDbContext;
+    private readonly IAuthorizationService _authorizationService;
 
-    public BookService(IGenericRepository<Book> bookRepository, ApplicationDbContext applicationDbContext)
+    public BookService(ApplicationDbContext applicationDbContext, 
+                       IAuthorizationService authorizationService)
     {
-        _bookGenericRepository = bookRepository;
         _applicationDbContext = applicationDbContext;
+        _authorizationService = authorizationService;
     }
 
     public async Task<Book> AddBookAsync(Book book)
     {
         book.Id = Guid.NewGuid().ToString();
-        book.CreatedDateT = DateTime.Now;
+        book.CreatedDateT = DateTime.UtcNow;
         book.StatusId = (int)Status.Active;
         book.IsDeleted = false;
 
-        var result = await _applicationDbContext.Book.AddAsync(book);
+        await _applicationDbContext.Book.AddAsync(book);
         await _applicationDbContext.SaveChangesAsync();
 
         return book;
@@ -36,27 +38,28 @@ public class BookService : IBookService
 
     public async Task DeleteBookAsync(string id)
     {
-        var book = await _applicationDbContext.Book
-            .Where(e => e.Id == id)
-            .FirstOrDefaultAsync();
-        
+        var book = await _applicationDbContext.Book.FindAsync(id);
         if (book != null)
         {
-            await _bookGenericRepository.DeleteAsync(book);
+            _applicationDbContext.Book.Remove(book);
+            await _applicationDbContext.SaveChangesAsync();
         }
     }
 
-    public async Task<BookDetailViewModel> GetBookDetailsAsync(string id)
+    public async Task<BookDetailViewModel> GetBookDetailsAsync(string id, ClaimsPrincipal claimsPrincipal)
     {
+        var book = await _applicationDbContext.Book
+            .Include(e => e.Loans)
+            .Include(e => e.Reservations)
+            .Include(e => e.Author).ThenInclude(e => e.Books)
+            .Include(e => e.Publisher).ThenInclude(e => e.Books)
+            .Include(e => e.Genre).ThenInclude(e => e.Books)
+            .FirstOrDefaultAsync(b => b.Id == id);
+
         var bookDetailViewModel = new BookDetailViewModel
         {
-            Book = await _applicationDbContext.Book
-                .Include(e => e.Loans)
-                .Include(e => e.Reservations)
-                .Include(e => e.Author).ThenInclude(e => e.Books)
-                .Include(e => e.Publisher).ThenInclude(e => e.Books)
-                .Include(e => e.Genre).ThenInclude(e => e.Books)
-                .FirstOrDefaultAsync()
+            Book = book,
+            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal)
         };
 
         return bookDetailViewModel;
@@ -64,11 +67,16 @@ public class BookService : IBookService
 
     public async Task<Book> EditBookAsync(Book book)
     {
-        var result = _applicationDbContext.Book.Update(book);
-        await _applicationDbContext.SaveChangesAsync();
-        if (result.State == EntityState.Modified)
+        var existingBook = await _applicationDbContext.Book.FindAsync(book.Id);
+        if (existingBook != null)
         {
-            book.AlertViewModel.IsSuccess = true;
+            _applicationDbContext.Entry(existingBook).CurrentValues.SetValues(book);
+            await _applicationDbContext.SaveChangesAsync();
+
+            book.AlertViewModel = new AlertViewModel
+            {
+                IsSuccess = true
+            };
         }
         else
         {

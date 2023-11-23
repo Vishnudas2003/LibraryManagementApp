@@ -4,5 +4,6 @@ namespace Services.Interfaces.Services.Authorization;
 
 public interface IAuthorizationService
 {
-    bool IsEmployee(ClaimsPrincipal claimsPrincipal);
+    bool IsLibraryStaff(ClaimsPrincipal claimsPrincipal);
+    bool IsSignedIn(ClaimsPrincipal claimsPrincipal);
 }

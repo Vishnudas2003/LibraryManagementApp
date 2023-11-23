@@ -7,6 +7,7 @@
 <partial name="Partials/Catalog/_Filter" model="Model.BookFilter"/>
 
 <div class="container vh-84 mt-3">
+    <partial name="/Views/Shared/Partials/_SuccessAlert.cshtml"/>
     <div class="card">
         <div class="card-body">
             <div class="row mt-3 g-2">
@@ -40,15 +41,16 @@
                                 <a asp-action="Detail" asp-controller="Book" asp-route-id="@book.Id">@book.Title</a>
                             </td>
                             <td class="text-center">@book.Quantity</td>
-                            <td>@book.Author.FirstName @book.Author.LastName</td>
+                            <td class="text-center">@book.Author.FirstName @book.Author.LastName</td>
                             <td class="text-center">@book.PublicationDateT.Year</td>
                             <td class="text-center">@book.Genre.Name</td>
-                            <td class="text-center">
-                                @if (Model.IsEmployee)
-                                {
+                            @if (Model.IsEmployee)
+                            {
+                                <td class="text-center">
+
                                     <a asp-action="Delete" asp-controller="Book" asp-route-id="@book.Id" class="btn btn-danger btn-sm w-100">Delete</a>
-                                }
-                            </td>
+                                </td>
+                            }
                         </tr>
                     }
                 </table>
