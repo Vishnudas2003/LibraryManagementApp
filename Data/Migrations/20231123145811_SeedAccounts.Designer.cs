@@ -4,6 +4,7 @@ using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231123145811_SeedAccounts")]
+    partial class SeedAccounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +104,7 @@ namespace Data.Migrations
                             Id = "93c3a7ce-45c4-4be9-8cf5-9030c8748330",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6829),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(815),
                             Email = "administrator@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -119,7 +122,7 @@ namespace Data.Migrations
                             Id = "4d9c6f2f-0d3b-40f7-9e71-664c3276a413",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6894),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(880),
                             Email = "librarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -137,7 +140,7 @@ namespace Data.Migrations
                             Id = "13b2a13d-6001-477e-9859-f352097da7e7",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6903),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(890),
                             Email = "assistantlibrarian@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -155,7 +158,7 @@ namespace Data.Migrations
                             Id = "7e362909-2567-4e1f-a9ae-e57335eeb14d",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6911),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(898),
                             Email = "technicalstaff@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -173,7 +176,7 @@ namespace Data.Migrations
                             Id = "a93e2d70-15c0-4ec3-9534-0e4b82d25579",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6917),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(904),
                             Email = "patron@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -191,7 +194,7 @@ namespace Data.Migrations
                             Id = "f9526d05-d4ba-41d1-ae8f-e2375fdd7042",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6925),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(913),
                             Email = "researcher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -209,7 +212,7 @@ namespace Data.Migrations
                             Id = "697660f1-6b37-47d6-a0ea-bedce25e0688",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6985),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(919),
                             Email = "eventmanagement@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -227,7 +230,7 @@ namespace Data.Migrations
                             Id = "7e06c23c-10a0-435d-8e44-49e5f497cff2",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(6992),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(925),
                             Email = "teacher@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -245,7 +248,7 @@ namespace Data.Migrations
                             Id = "f32ec246-ba2c-4fd4-8fb3-3f7b42389f84",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "07e1940e-7b71-4607-beaa-e4cd284d491b",
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Local).AddTicks(7000),
+                            CreatedDateT = new DateTime(2023, 11, 23, 14, 58, 11, 828, DateTimeKind.Local).AddTicks(933),
                             Email = "student@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -279,14 +282,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Author");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "AK",
-                            LastName = "Howard"
-                        });
                 });
 
             modelBuilder.Entity("Core.Models.Catalog.Book", b =>
@@ -341,64 +336,6 @@ namespace Data.Migrations
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Book");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "08070c0d-fed4-4232-b9d8-311b1a0d3fb7",
-                            AuthorId = 1,
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Utc).AddTicks(7232),
-                            GenreId = 1,
-                            IsDeleted = false,
-                            Isbn = "1990678092",
-                            PublicationDateT = new DateTime(2022, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 1,
-                            Quantity = 5,
-                            StatusId = 1,
-                            Title = "Genesis Awakens: An Action Adventure Fantasy with Historical Elements"
-                        },
-                        new
-                        {
-                            Id = "334962dd-8f2a-478a-8c87-44414a2ce7ae",
-                            AuthorId = 1,
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Utc).AddTicks(7245),
-                            GenreId = 2,
-                            IsDeleted = false,
-                            Isbn = "9780553825091",
-                            PublicationDateT = new DateTime(2023, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 1,
-                            Quantity = 5,
-                            StatusId = 1,
-                            Title = "Genesis: The Grail Knight"
-                        },
-                        new
-                        {
-                            Id = "9c4d46ed-9009-4909-925c-05fa58ee89fd",
-                            AuthorId = 1,
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Utc).AddTicks(7251),
-                            GenreId = 3,
-                            IsDeleted = false,
-                            Isbn = "1990678114",
-                            PublicationDateT = new DateTime(2022, 6, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 1,
-                            Quantity = 5,
-                            StatusId = 1,
-                            Title = "Forging the Sword: An Action Adventure Fantasy with Historical Elements"
-                        },
-                        new
-                        {
-                            Id = "d0af7781-d456-467d-9a5f-176ca3d94c75",
-                            AuthorId = 1,
-                            CreatedDateT = new DateTime(2023, 11, 23, 15, 0, 13, 40, DateTimeKind.Utc).AddTicks(7257),
-                            GenreId = 5,
-                            IsDeleted = false,
-                            Isbn = "1990678130",
-                            PublicationDateT = new DateTime(2022, 9, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PublisherId = 1,
-                            Quantity = 5,
-                            StatusId = 1,
-                            Title = "Merlin's Revelation: A Fast-Paced Christian Fantasy"
-                        });
                 });
 
             modelBuilder.Entity("Core.Models.Catalog.Genre", b =>
@@ -419,68 +356,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genre");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GenreType = 1,
-                            Name = "Mystery"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GenreType = 1,
-                            Name = "Thriller"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            GenreType = 1,
-                            Name = "Horror"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            GenreType = 1,
-                            Name = "Historical Fiction"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            GenreType = 1,
-                            Name = "Romance"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            GenreType = 1,
-                            Name = "Science Fiction"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            GenreType = 1,
-                            Name = "Fantasy"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            GenreType = 1,
-                            Name = "Dystopian"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            GenreType = 1,
-                            Name = "Adventure"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            GenreType = 1,
-                            Name = "Young Adult (YA)"
-                        });
                 });
 
             modelBuilder.Entity("Core.Models.Catalog.Publisher", b =>
@@ -498,13 +373,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Publisher");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Footnail Press"
-                        });
                 });
 
             modelBuilder.Entity("Core.Models.Fine.Fines", b =>
@@ -768,53 +636,6 @@ namespace Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "93c3a7ce-45c4-4be9-8cf5-9030c8748330",
-                            RoleId = "837a0b05-8bb3-464f-a992-1cdebe7c40d7"
-                        },
-                        new
-                        {
-                            UserId = "4d9c6f2f-0d3b-40f7-9e71-664c3276a413",
-                            RoleId = "335c109a-fc01-4738-9b93-4f691e013326"
-                        },
-                        new
-                        {
-                            UserId = "13b2a13d-6001-477e-9859-f352097da7e7",
-                            RoleId = "a1a8bfa0-3df2-4479-ad7a-c4619a924034"
-                        },
-                        new
-                        {
-                            UserId = "7e362909-2567-4e1f-a9ae-e57335eeb14d",
-                            RoleId = "4d9b719f-9fe9-4204-8fcf-53e27a214f84"
-                        },
-                        new
-                        {
-                            UserId = "a93e2d70-15c0-4ec3-9534-0e4b82d25579",
-                            RoleId = "eef91604-9e4c-4d32-a36c-693cb4bed332"
-                        },
-                        new
-                        {
-                            UserId = "f9526d05-d4ba-41d1-ae8f-e2375fdd7042",
-                            RoleId = "01af80e2-1ace-4a3e-bb5f-d16889dd9bc7"
-                        },
-                        new
-                        {
-                            UserId = "697660f1-6b37-47d6-a0ea-bedce25e0688",
-                            RoleId = "9c37fced-a97a-4d3d-9f37-206d711b4bcb"
-                        },
-                        new
-                        {
-                            UserId = "7e06c23c-10a0-435d-8e44-49e5f497cff2",
-                            RoleId = "ea9ae32b-bd8f-467c-941d-c4371771adcb"
-                        },
-                        new
-                        {
-                            UserId = "f32ec246-ba2c-4fd4-8fb3-3f7b42389f84",
-                            RoleId = "fc7309e9-3d53-42db-b518-95c4e71a2f5e"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

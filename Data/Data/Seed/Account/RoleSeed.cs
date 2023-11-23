@@ -17,7 +17,7 @@ public static class RoleSeed
 
     public static void SeedRoles(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<IdentityRole<string>>().HasData(
+        modelBuilder.Entity<IdentityRole>().HasData(
             CreateRole("837a0b05-8bb3-464f-a992-1cdebe7c40d7", "Administrator"),
             CreateRole("335c109a-fc01-4738-9b93-4f691e013326", "Librarian"),
             CreateRole("a1a8bfa0-3df2-4479-ad7a-c4619a924034", "AssistantLibrarian"),
