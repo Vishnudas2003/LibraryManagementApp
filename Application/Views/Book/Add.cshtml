@@ -42,7 +42,13 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label asp-for="Genre.Name" class="form-label">Genre</label>
-                            <input asp-for="Genre.Name" type="text" class="form-control">
+                            <select class="form-select" asp-for="GenreId" aria-label="Default select example">
+                                <option class="disabled" selected>Select Genre</option>
+                                @foreach (var genre in Model.Genres)
+                                {
+                                    <option value="@genre.Id">@genre.Name</option>
+                                }
+                            </select>
                         </div>
                     </div>
 

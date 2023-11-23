@@ -10,4 +10,5 @@ public interface IBookService
     Task DeleteBookAsync(string id);
     Task<BookDetailViewModel> GetBookDetailsAsync(string id, ClaimsPrincipal claimsPrincipal);
     Task<Book> EditBookAsync(Book book);
+    Task<Book> GenerateNewBookViewAsync();
 }

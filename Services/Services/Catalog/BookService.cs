@@ -23,14 +23,59 @@ public class BookService : IBookService
         _authorizationService = authorizationService;
     }
 
+    public async Task<Book> GenerateNewBookViewAsync()
+    {
+        return new Book
+        {
+            Genres = await _applicationDbContext.Genre.ToListAsync()
+        };
+    }
+
     public async Task<Book> AddBookAsync(Book book)
     {
+        var bookExists = _applicationDbContext.Book.Any(e => e.Title == book.Title);
+        var ibanExists = _applicationDbContext.Book.Any(e => e.Isbn == book.Isbn);
+
+        if (bookExists)
+        {
+            book.AlertViewModel.IsSuccess = false;
+            book.AlertViewModel.Message = "Book already exists";
+        }
+        
+        if (ibanExists)
+        {
+            book.AlertViewModel.IsSuccess = false;
+            book.AlertViewModel.Message = "Isbn already exists";
+        }
+        
         book.Id = Guid.NewGuid().ToString();
         book.CreatedDateT = DateTime.UtcNow;
         book.StatusId = (int)Status.Active;
         book.IsDeleted = false;
 
-        await _applicationDbContext.Book.AddAsync(book);
+        // Check if the author exists
+        var existingAuthor = _applicationDbContext.Author
+            .FirstOrDefault(e => e.FirstName == book.Author.FirstName && e.LastName == book.Author.LastName);
+    
+        if (existingAuthor != null)
+        {
+            // If the author exists, use the existing author's Id
+            book.AuthorId = existingAuthor.Id;
+            book.Author = null; // Detach the new Author object
+        }
+
+        // Check if the publisher exists
+        var existingPublisher = _applicationDbContext.Publisher
+            .FirstOrDefault(e => e.Name == book.Publisher.Name);
+
+        if (existingPublisher != null)
+        {
+            // If the publisher exists, use the existing publisher's Id
+            book.PublisherId = existingPublisher.Id;
+            book.Publisher = null; // Detach the new Publisher object
+        }
+
+        _applicationDbContext.Book.Add(book);
         await _applicationDbContext.SaveChangesAsync();
 
         return book;

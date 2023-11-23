@@ -16,9 +16,10 @@ public class BookController : Controller
 
     [HttpGet]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
-    public IActionResult Add()
+    public async Task<IActionResult> Add()
     {
-        return View(new Book());
+        var book = await _bookService.GenerateNewBookViewAsync();
+        return View(book);
     }
     
     [HttpPost]
