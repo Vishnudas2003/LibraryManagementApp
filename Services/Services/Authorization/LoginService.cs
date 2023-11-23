@@ -1,6 +1,6 @@
 ﻿using Core.Constants;
 using Core.Models.Account;
-using Core.Models.Account.ViewModels;
+using Core.Models.Account.VM;
 using Core.Models.Shared;
 using Microsoft.AspNetCore.Identity;
 using Services.Interfaces.Services;

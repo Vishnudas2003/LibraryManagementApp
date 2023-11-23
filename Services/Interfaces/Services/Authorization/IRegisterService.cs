@@ -1,4 +1,4 @@
-﻿using Core.Models.Account.ViewModels;
+﻿using Core.Models.Account.VM;
 using Microsoft.AspNetCore.Identity;
 
 namespace Services.Interfaces.Services.Authorization;

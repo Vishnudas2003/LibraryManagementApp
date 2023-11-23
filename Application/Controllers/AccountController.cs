@@ -1,5 +1,5 @@
 ﻿using Core.Constants;
-using Core.Models.Account.ViewModels;
+using Core.Models.Account.VM;
 using Core.Models.Shared;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
