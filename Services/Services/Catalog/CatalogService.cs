@@ -1,130 +1,99 @@
 ﻿using Core.Models.Catalog;
+using Core.Models.Catalog.VM;
 using Data.Data;
 using Microsoft.EntityFrameworkCore;
-using Services.Interfaces.Repository;
 using Services.Interfaces.Services.Catalog;
+using System.Linq.Expressions;
 
 namespace Services.Services.Catalog;
 
 public class CatalogService : ICatalogService
 {
-    private readonly IGenericRepository<Book> _bookGenericRepository;
     private readonly ApplicationDbContext _applicationDbContext;
 
-    public CatalogService(IGenericRepository<Book> bookRepository, ApplicationDbContext applicationDbContext)
+    public CatalogService(ApplicationDbContext applicationDbContext)
     {
-        _bookGenericRepository = bookRepository;
-        _applicationDbContext = applicationDbContext;
+        _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
     }
 
-    public async Task<List<Book>> GetBooksAsync()
+    public async Task<CatalogViewModel> GetBooksAsync()
     {
-        return await _bookGenericRepository.GetAllAsync();
-    }
+        var booksQuery = ApplyCommonIncludes(_applicationDbContext.Book);
 
-    public async Task<List<Book>> GetBooksAsync(BookFilter bookFilter)
-    {
-        IQueryable<Book> booksQuery = _applicationDbContext.Book;
-
-        booksQuery = ApplyAuthorFilter(booksQuery, bookFilter);
-        booksQuery = ApplyPublisherFilter(booksQuery, bookFilter);
-        booksQuery = ApplyGenreFilter(booksQuery, bookFilter);
-        booksQuery = ApplyIsbnFilter(booksQuery, bookFilter);
-        booksQuery = ApplyTitleFilter(booksQuery, bookFilter);
-        booksQuery = ApplyPublicationDateFilter(booksQuery, bookFilter);
-        booksQuery = ApplyQuantityFilter(booksQuery, bookFilter);
-
-        return await booksQuery.ToListAsync();
-    }
-
-    private IQueryable<Book> ApplyAuthorFilter(IQueryable<Book> query, BookFilter filter)
-    {
-        if (string.IsNullOrEmpty(filter.AuthorFirstName) && string.IsNullOrEmpty(filter.AuthorLastName)) 
-            return query;
-        
-        var author = _applicationDbContext.Author.FirstOrDefault(a =>
-            a.FirstName.Contains(filter.AuthorFirstName ?? string.Empty) ||
-            a.LastName.Contains(filter.AuthorLastName ?? string.Empty));
-
-        if (author == null) throw new Exception("Author not found");
-
-        query = query.Where(b => b.Author.Id == author.Id);
-
-        return query;
-    }
-
-    private IQueryable<Book> ApplyPublisherFilter(IQueryable<Book> query, BookFilter filter)
-    {
-        if (string.IsNullOrEmpty(filter.Publisher)) 
-            return query;
-        
-        var publisher = _applicationDbContext.Publisher.FirstOrDefault(p =>
-            p.Name.Contains(filter.Publisher));
-
-        if (publisher == null) throw new Exception("Publisher not found");
-
-        query = query.Where(b => b.Publisher.Id == publisher.Id);
-
-        return query;
-    }
-
-    private IQueryable<Book> ApplyGenreFilter(IQueryable<Book> query, BookFilter filter)
-    {
-        if (string.IsNullOrEmpty(filter.Genre)) 
-            return query;
-        
-        var genre = _applicationDbContext.Genre.FirstOrDefault(g =>
-            g.Name.Contains(filter.Genre));
-
-        if (genre == null) throw new Exception("Genre not found");
-
-        query = query.Where(b => b.Genre.Id == genre.Id);
-
-        return query;
-    }
-
-    private IQueryable<Book> ApplyIsbnFilter(IQueryable<Book> query, BookFilter filter)
-    {
-        if (!string.IsNullOrEmpty(filter.Isbn))
+        CatalogViewModel catalogViewModel = new()
         {
-            query = query.Where(b => b.Isbn.Contains(filter.Isbn));
+            Books = await booksQuery
+                .Where(e=> e.IsDeleted == false || e.StatusId != 0)
+                .ToListAsync()
+        };
+
+        return catalogViewModel;
+    }
+
+    public async Task<CatalogViewModel> GetBooksAsync(BookFilter bookFilter)
+    {
+        var booksQuery = ApplyCommonIncludes(_applicationDbContext.Book);
+
+        if (!string.IsNullOrEmpty(bookFilter.AuthorFirstName) || !string.IsNullOrEmpty(bookFilter.AuthorLastName))
+        {
+            booksQuery = ApplyFilter(booksQuery, b =>
+                b.Author.FirstName.Contains(bookFilter.AuthorFirstName ?? string.Empty) ||
+                b.Author.LastName.Contains(bookFilter.AuthorLastName ?? string.Empty));
         }
 
-        return query;
+        if (!string.IsNullOrEmpty(bookFilter.Publisher))
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.Publisher.Name.Contains(bookFilter.Publisher));
+        }
+
+        if (!string.IsNullOrEmpty(bookFilter.Genre))
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.Genre.Name.Contains(bookFilter.Genre));
+        }
+
+        if (!string.IsNullOrEmpty(bookFilter.Isbn))
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.Isbn.Contains(bookFilter.Isbn));
+        }
+
+        if (!string.IsNullOrEmpty(bookFilter.Title))
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.Title.Contains(bookFilter.Title));
+        }
+
+        if (bookFilter.PublicationStartDateT != null)
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.PublicationDateT >= bookFilter.PublicationStartDateT);
+        }
+
+        if (bookFilter.PublicationEndDateT != null)
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.PublicationDateT <= bookFilter.PublicationEndDateT);
+        }
+
+        if (bookFilter.Quantity != null)
+        {
+            booksQuery = ApplyFilter(booksQuery, b => b.Quantity >= bookFilter.Quantity);
+        }
+
+        CatalogViewModel catalogViewModel = new()
+        {
+            Books = await booksQuery.ToListAsync()
+        };
+
+        return catalogViewModel;
     }
 
-    private IQueryable<Book> ApplyTitleFilter(IQueryable<Book> query, BookFilter filter)
+    private IQueryable<Book> ApplyCommonIncludes(IEnumerable<Book> query)
     {
-        if (!string.IsNullOrEmpty(filter.Title))
-        {
-            query = query.Where(b => b.Title.Contains(filter.Title));
-        }
-
-        return query;
+        return query.AsQueryable().Where(e => e.StatusId != 0 && e.IsDeleted == false)
+            .Include(e => e.Publisher).Where(e => e.StatusId != 0 && e.IsDeleted == false)
+            .Include(e => e.Author).Where(e => e.StatusId != 0 && e.IsDeleted == false)
+            .Include(e => e.Genre).Where(e => e.StatusId != 0 && e.IsDeleted == false);
     }
 
-    private IQueryable<Book> ApplyPublicationDateFilter(IQueryable<Book> query, BookFilter filter)
+    private IQueryable<Book> ApplyFilter(IQueryable<Book> query, Expression<Func<Book, bool>> filter)
     {
-        if (filter.PublicationStartDateT != null)
-        {
-            query = query.Where(b => b.PublicationDateT >= filter.PublicationStartDateT);
-        }
-
-        if (filter.PublicationEndDateT != null)
-        {
-            query = query.Where(b => b.PublicationDateT <= filter.PublicationEndDateT);
-        }
-
-        return query;
-    }
-
-    private IQueryable<Book> ApplyQuantityFilter(IQueryable<Book> query, BookFilter filter)
-    {
-        if (filter.Quantity != null)
-        {
-            query = query.Where(b => b.Quantity >= filter.Quantity);
-        }
-
-        return query;
+        return query.Where(filter);
     }
 }

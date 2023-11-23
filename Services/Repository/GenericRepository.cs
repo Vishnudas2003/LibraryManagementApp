@@ -5,7 +5,7 @@ using Services.Interfaces.Repository;
 
 namespace Services.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T>
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext _context;
 
@@ -37,6 +37,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity<T
             if (entity == null) throw new InvalidOperationException("Cannot delete a null object!");
             //We do a soft delete, just update it.
             entity.IsDeleted = true;
+            entity.StatusId = 0;
             entity.DeletedDateT = DateTime.UtcNow;
             await UpdateAsync(entity);
         }

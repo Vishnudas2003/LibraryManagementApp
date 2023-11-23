@@ -1,9 +1,10 @@
 ﻿using Core.Models.Catalog;
+using Core.Models.Catalog.VM;
 
 namespace Services.Interfaces.Services.Catalog;
 
 public interface ICatalogService
 {
-    Task<List<Book>> GetBooksAsync();
-    Task<List<Book>> GetBooksAsync(BookFilter bookFilter);
+    Task<CatalogViewModel> GetBooksAsync();
+    Task<CatalogViewModel> GetBooksAsync(BookFilter bookFilter);
 }

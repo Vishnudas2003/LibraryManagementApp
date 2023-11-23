@@ -1,1 +1,88 @@
-﻿
+﻿@model Core.Models.Catalog.Book
+
+@{
+    ViewBag.Title = "Add Book";
+}
+
+<div class="container vh-84 mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Catalog">Catalog</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Add Book</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-body mt-3">
+            <form asp-action="Add" asp-controller="Book" method="post">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label">Title</label>
+                            <input asp-for="Title" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Isbn" class="form-label">ISBN</label>
+                            <input asp-for="Isbn" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label asp-for="PublicationDateT" class="form-label">Publication Date</label>
+                            <input asp-for="PublicationDateT" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Genre.Name" class="form-label">Genre</label>
+                            <input asp-for="Genre.Name" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <div class="mb-3">
+                            <label asp-for="Quantity" class="form-label">Quantity</label>
+                            <input asp-for="Quantity" type="number" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Author.FirstName" class="form-label">Author Forename</label>
+                            <input asp-for="Author.FirstName" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Author.LastName" class="form-label">Author Surname</label>
+                            <input asp-for="Author.LastName" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Publisher.Name" class="form-label">Publisher Name</label>
+                            <input asp-for="Publisher.Name" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 offset-md-9">
+                        <input class="btn btn-primary btn-lg w-100" type="submit" value="Add Book"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
