@@ -9,37 +9,35 @@
     <partial name="~/Views/Shared/Partials/_Alert.cshtml" model="Model.AlertViewModel"/>
 }
 
-<div class="container">
-    <div class="row vh-84">
-        <div class="col-md-6 d-none d-md-block authentication-background-login"></div>
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
+<div class="row vh-84">
+    <div class="col-md-6 d-none d-md-block authentication-background-login"></div>
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
 
-            <form asp-action="Login" asp-controller="Account" method="post" class="authentication-form">
+        <form asp-action="Login" asp-controller="Account" method="post" class="authentication-form">
 
-                <div class="mb-3">
-                    <label asp-for="UsernameOrEmail" class="form-label">Username</label>
-                    <input asp-for="UsernameOrEmail" type="text" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Password" class="form-label">Password</label>
-                    <input asp-for="Password" type="password" class="form-control">
-                </div>
-                <div class="mb-3 form-check">
-                    <input asp-for="RememberMe" type="checkbox" class="form-check-input">
-                    <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary w-100">LOGIN</button>
-                </div>
+            <div class="mb-3">
+                <label asp-for="UsernameOrEmail" class="form-label">Username</label>
+                <input asp-for="UsernameOrEmail" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control">
+            </div>
+            <div class="mb-3 form-check">
+                <input asp-for="RememberMe" type="checkbox" class="form-check-input">
+                <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary w-100">LOGIN</button>
+            </div>
 
-                <hr/>
+            <hr/>
 
-                <div class="mb-3">
-                    <span>Don't have an account? <a asp-action="Register" asp-controller="Account">Register</a></span>
-                    <br/>
-                    <span>Forgotten Password? <a class="disabled" href="#">Reset Password</a></span>
-                </div>
-            </form>
-        </div>
+            <div class="mb-3">
+                <span>Don't have an account? <a asp-action="Register" asp-controller="Account">Register</a></span>
+                <br/>
+                <span>Forgotten Password? <a class="disabled" href="#">Reset Password</a></span>
+            </div>
+        </form>
     </div>
 </div>

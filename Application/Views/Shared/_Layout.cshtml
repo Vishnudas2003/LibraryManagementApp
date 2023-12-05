@@ -1,5 +1,5 @@
 ﻿@{
-    var title = string.IsNullOrWhiteSpace(ViewBag.Title) ? "LBA" : $"{ViewBag.Title} - LBA";
+    var title = string.IsNullOrWhiteSpace(ViewBag.Title) ? "BiblioTech" : $"{ViewBag.Title} - BiblioTech";
 }
 
 <!DOCTYPE html>
@@ -11,12 +11,15 @@
     <title>@title</title>
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
+    <link rel="stylesheet" href="~/css/flash.css">
 </head>
 <body>
 
 <partial name="Partials/_Navbar"/>
 
-<div class="container-fluid px-0 py-3 py-md-0">
+<div class="container-fluid px-0 py-0 py-lg-3">
     <main role="main">
         @RenderBody()
     </main>
