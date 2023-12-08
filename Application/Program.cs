@@ -3,14 +3,12 @@ using Core.Models.Catalog;
 using Data.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Services.Interfaces.Repository;
-using Services.Interfaces.Services;
-using Services.Interfaces.Services.Authorization;
-using Services.Interfaces.Services.Catalog;
+using Services.Interface.Repository;
+using Services.Interface.Service.Authorization;
+using Services.Interface.Service.Catalog;
 using Services.Repository;
-using Services.Services;
-using Services.Services.Authorization;
-using Services.Services.Catalog;
+using Services.Service.Authorization;
+using Services.Service.Catalog;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +47,8 @@ void ConfigureMvc(WebApplicationBuilder builder)
 {
     builder.Services.AddControllersWithViews()
         .AddViewOptions(options => { options.HtmlHelperOptions.ClientValidationEnabled = true; });
+    
+    builder.Services.AddHttpClient();
 }
 
 void ConfigureServices(WebApplicationBuilder builder)

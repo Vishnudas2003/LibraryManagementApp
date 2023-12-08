@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces.Services;
-using Services.Interfaces.Services.Authorization;
+using Services.Interface.Service.Authorization;
 
 namespace Application.Controllers;
 
