@@ -1,0 +1,14 @@
+﻿using System.Security.Claims;
+using Core.Models.Catalog;
+using Core.Models.Catalog.VM;
+
+namespace Services.Interface.Service.Catalog;
+
+public interface IBookService
+{
+    Task<Book> AddBookAsync(Book book);
+    Task DeleteBookAsync(string id);
+    Task<BookDetailViewModel> GetBookDetailsAsync(string id, ClaimsPrincipal claimsPrincipal);
+    Task<Book> EditBookAsync(Book book);
+    Task<Book> GenerateNewBookViewAsync();
+}
