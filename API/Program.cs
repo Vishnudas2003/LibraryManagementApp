@@ -1,30 +1,31 @@
+using API.Service.Interface;
+using API.Service.Service;
 using Core.Models.Account;
-using Core.Models.Catalog;
 using Data.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Services.Interface.Repository;
-using Services.Interface.Service.Authorization;
-using Services.Interface.Service.Catalog;
-using Services.Repository;
-using Services.Service.Authorization;
-using Services.Service.Catalog;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
+ConfigureApi(webApplicationBuilder);
 ConfigureDatabase(webApplicationBuilder);
 ConfigureIdentity(webApplicationBuilder);
-ConfigureMvc(webApplicationBuilder);
 ConfigureServices(webApplicationBuilder);
-ConfigureRepositories(webApplicationBuilder);
 AddAuthorizationPolicies(webApplicationBuilder);
-ConfigureCookie(webApplicationBuilder);
 
 var app = webApplicationBuilder.Build();
 
 ConfigurePipeline(app);
 
 app.Run();
+
+void ConfigureApi(WebApplicationBuilder builder)
+{
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+}
 
 void ConfigureDatabase(WebApplicationBuilder builder)
 {
@@ -43,29 +44,10 @@ void ConfigureIdentity(WebApplicationBuilder builder)
         .AddDefaultTokenProviders();
 }
 
-void ConfigureMvc(WebApplicationBuilder builder)
-{
-    builder.Services.AddControllersWithViews()
-        .AddViewOptions(options => { options.HtmlHelperOptions.ClientValidationEnabled = true; });
-    
-    builder.Services.AddHttpClient();
-}
-
 void ConfigureServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddTransient<ILoginService, LoginService>();
-    builder.Services.AddTransient<IRegisterService, RegisterService>();
-    builder.Services.AddTransient<IProfileService, ProfileService>();
-    builder.Services.AddTransient<IBookService, BookService>();
-    builder.Services.AddTransient<ICatalogService, CatalogService>();
-    builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
-}
-
-void ConfigureRepositories(WebApplicationBuilder builder)
-{
-    builder.Services.AddTransient<IRoleRepository, RoleRepository<IdentityRole>>();
-    builder.Services.AddTransient<ICatalogRepository, CatalogRepository>();
-    builder.Services.AddTransient<IGenericRepository<Book>, GenericRepository<Book>>();
+    builder.Services.AddTransient<IBookRequestService, BookRequestService>();
+    builder.Services.AddHttpClient();
 }
 
 void AddAuthorizationPolicies(WebApplicationBuilder builder)
@@ -86,24 +68,14 @@ void AddAuthorizationPolicies(WebApplicationBuilder builder)
 
 void ConfigurePipeline(WebApplication webApp)
 {
-    if (!webApp.Environment.IsDevelopment())
-    {
-        webApp.UseExceptionHandler("/Shared/Error");
-        webApp.UseHsts();
-    }
+    // Configure the HTTP request pipeline.
+    // if (webApp.Environment.IsDevelopment())
+    // {
+    //     webApp.UseSwagger();
+    //     webApp.UseSwaggerUI();
+    // }
 
     webApp.UseHttpsRedirection();
-    webApp.UseStaticFiles();
-    webApp.UseRouting();
-    webApp.UseAuthentication();
     webApp.UseAuthorization();
-
-    webApp.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-}
-
-void ConfigureCookie(WebApplicationBuilder builder)
-{
-    builder.Services.ConfigureApplicationCookie(options => { options.AccessDeniedPath = "/Home/AccessDenied"; });
+    webApp.MapControllers();
 }

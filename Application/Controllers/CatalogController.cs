@@ -1,7 +1,7 @@
 ﻿using Core.Models.Catalog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces.Services.Catalog;
+using Services.Interface.Service.Catalog;
 
 namespace Application.Controllers;
 
