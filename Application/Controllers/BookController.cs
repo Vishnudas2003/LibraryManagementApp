@@ -5,20 +5,13 @@ using Services.Interface.Service.Catalog;
 
 namespace Application.Controllers;
 
-public class BookController : Controller
+public class BookController(IBookService bookService) : Controller
 {
-    private readonly IBookService _bookService;
-
-    public BookController(IBookService bookService)
-    {
-        _bookService = bookService;
-    }
-
     [HttpGet]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public async Task<IActionResult> Add()
     {
-        var book = await _bookService.GenerateNewBookViewAsync();
+        var book = await bookService.GenerateNewBookViewAsync();
         return View(book);
     }
     
@@ -26,7 +19,7 @@ public class BookController : Controller
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public async Task<IActionResult> Add(Book book)
     {
-        var result = await _bookService.AddBookAsync(book);
+        var result = await bookService.AddBookAsync(book);
 
         if (string.IsNullOrWhiteSpace(result.Id))
         {
@@ -41,7 +34,7 @@ public class BookController : Controller
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public async Task<IActionResult> Delete(string id)
     {
-        await _bookService.DeleteBookAsync(id);
+        await bookService.DeleteBookAsync(id);
         ViewBag.SuccessMessage = "Book deleted successfully!";
         return RedirectToAction(nameof(Index), "Catalog");
     }
@@ -50,7 +43,7 @@ public class BookController : Controller
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public async Task<IActionResult> Edit(string id)
     {
-        var bookDetailViewModel = await _bookService.GetBookDetailsAsync(id, User);
+        var bookDetailViewModel = await bookService.GetBookDetailsAsync(id, User);
         return View(bookDetailViewModel);
     }
     
@@ -63,7 +56,7 @@ public class BookController : Controller
             return View(book);
         }
 
-        var updatedBook = await _bookService.EditBookAsync(book);
+        var updatedBook = await bookService.EditBookAsync(book);
 
         if (!string.IsNullOrWhiteSpace(updatedBook.AlertViewModel.Message)) return View(book);
         
@@ -75,7 +68,7 @@ public class BookController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Detail(string id)
     {
-        var bookDetailViewModel = await _bookService.GetBookDetailsAsync(id, User);
+        var bookDetailViewModel = await bookService.GetBookDetailsAsync(id, User);
         return View(bookDetailViewModel);
     }
 }

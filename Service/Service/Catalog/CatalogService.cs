@@ -9,16 +9,10 @@ using Services.Interface.Service.Catalog;
 
 namespace Services.Service.Catalog;
 
-public class CatalogService : ICatalogService
+public class CatalogService(ApplicationDbContext applicationDbContext, IAuthorizationService authorizationService)
+    : ICatalogService
 {
-    private readonly ApplicationDbContext _applicationDbContext;
-    private readonly IAuthorizationService _authorizationService;
-
-    public CatalogService(ApplicationDbContext applicationDbContext, IAuthorizationService authorizationService)
-    {
-        _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
-        _authorizationService = authorizationService;
-    }
+    private readonly ApplicationDbContext _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
 
     public async Task<CatalogViewModel> GetBooksAsync(ClaimsPrincipal claimsPrincipal)
     {
@@ -29,7 +23,7 @@ public class CatalogService : ICatalogService
             Books = await booksQuery
                 .Where(e=> e.IsDeleted == false || e.StatusId != 0)
                 .ToListAsync(),
-            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal),
+            IsEmployee = authorizationService.IsLibraryStaff(claimsPrincipal),
             BookFilter = new BookFilter
             {
                 Genres = _applicationDbContext.Genre.ToList()
@@ -91,7 +85,7 @@ public class CatalogService : ICatalogService
         CatalogViewModel catalogViewModel = new()
         {
             Books = await booksQuery.ToListAsync(),
-            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal),
+            IsEmployee = authorizationService.IsLibraryStaff(claimsPrincipal),
             BookFilter = bookFilter
         };
 
@@ -99,7 +93,7 @@ public class CatalogService : ICatalogService
         return catalogViewModel;
     }
 
-    private IQueryable<Book> ApplyCommonIncludes(IEnumerable<Book> query)
+    private IQueryable<Book> ApplyCommonIncludes(IEnumerable<Book>? query)
     {
         return query.AsQueryable().Where(e => e.StatusId != 0 && e.IsDeleted == false)
             .Include(e => e.Publisher).Where(e => e.StatusId != 0 && e.IsDeleted == false)

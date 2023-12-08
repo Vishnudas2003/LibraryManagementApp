@@ -11,30 +11,22 @@ using Services.Interface.Service.Catalog;
 
 namespace Services.Service.Catalog;
 
-public class BookService : IBookService
+public class BookService(ApplicationDbContext applicationDbContext,
+        IAuthorizationService authorizationService)
+    : IBookService
 {
-    private readonly ApplicationDbContext _applicationDbContext;
-    private readonly IAuthorizationService _authorizationService;
-
-    public BookService(ApplicationDbContext applicationDbContext, 
-                       IAuthorizationService authorizationService)
-    {
-        _applicationDbContext = applicationDbContext;
-        _authorizationService = authorizationService;
-    }
-
     public async Task<Book> GenerateNewBookViewAsync()
     {
         return new Book
         {
-            Genres = await _applicationDbContext.Genre.ToListAsync()
+            Genres = await applicationDbContext.Genre.ToListAsync()
         };
     }
 
     public async Task<Book> AddBookAsync(Book book)
     {
-        var bookExists = _applicationDbContext.Book.Any(e => e.Title == book.Title);
-        var ibanExists = _applicationDbContext.Book.Any(e => e.Isbn == book.Isbn);
+        var bookExists = applicationDbContext.Book.Any(e => e.Title == book.Title);
+        var ibanExists = applicationDbContext.Book.Any(e => e.Isbn == book.Isbn);
 
         if (bookExists)
         {
@@ -54,7 +46,7 @@ public class BookService : IBookService
         book.IsDeleted = false;
 
         // Check if the author exists
-        var existingAuthor = _applicationDbContext.Author
+        var existingAuthor = applicationDbContext.Author
             .FirstOrDefault(e => e.FirstName == book.Author.FirstName && e.LastName == book.Author.LastName);
     
         if (existingAuthor != null)
@@ -65,7 +57,7 @@ public class BookService : IBookService
         }
 
         // Check if the publisher exists
-        var existingPublisher = _applicationDbContext.Publisher
+        var existingPublisher = applicationDbContext.Publisher
             .FirstOrDefault(e => e.Name == book.Publisher.Name);
 
         if (existingPublisher != null)
@@ -75,25 +67,25 @@ public class BookService : IBookService
             book.Publisher = null; // Detach the new Publisher object
         }
 
-        _applicationDbContext.Book.Add(book);
-        await _applicationDbContext.SaveChangesAsync();
+        applicationDbContext.Book.Add(book);
+        await applicationDbContext.SaveChangesAsync();
 
         return book;
     }
 
     public async Task DeleteBookAsync(string id)
     {
-        var book = await _applicationDbContext.Book.FindAsync(id);
+        var book = await applicationDbContext.Book.FindAsync(id);
         if (book != null)
         {
-            _applicationDbContext.Book.Remove(book);
-            await _applicationDbContext.SaveChangesAsync();
+            applicationDbContext.Book.Remove(book);
+            await applicationDbContext.SaveChangesAsync();
         }
     }
 
     public async Task<BookDetailViewModel> GetBookDetailsAsync(string id, ClaimsPrincipal claimsPrincipal)
     {
-        var book = await _applicationDbContext.Book
+        var book = await applicationDbContext.Book
             .Include(e => e.Loans)
             .Include(e => e.Reservations)
             .Include(e => e.Author).ThenInclude(e => e.Books)
@@ -104,7 +96,7 @@ public class BookService : IBookService
         var bookDetailViewModel = new BookDetailViewModel
         {
             Book = book,
-            IsEmployee = _authorizationService.IsLibraryStaff(claimsPrincipal)
+            IsEmployee = authorizationService.IsLibraryStaff(claimsPrincipal)
         };
 
         return bookDetailViewModel;
@@ -112,11 +104,11 @@ public class BookService : IBookService
 
     public async Task<Book> EditBookAsync(Book book)
     {
-        var existingBook = await _applicationDbContext.Book.FindAsync(book.Id);
+        var existingBook = await applicationDbContext.Book.FindAsync(book.Id);
         if (existingBook != null)
         {
-            _applicationDbContext.Entry(existingBook).CurrentValues.SetValues(book);
-            await _applicationDbContext.SaveChangesAsync();
+            applicationDbContext.Entry(existingBook).CurrentValues.SetValues(book);
+            await applicationDbContext.SaveChangesAsync();
 
             book.AlertViewModel = new AlertViewModel
             {

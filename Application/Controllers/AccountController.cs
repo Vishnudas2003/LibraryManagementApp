@@ -9,19 +9,10 @@ using Services.Interface.Service.Authorization;
 
 namespace Application.Controllers;
 
-public class AccountController : Controller
+public class AccountController(ILoginService loginService, IRegisterService registerService,
+        IProfileService profileService)
+    : Controller
 {
-    private readonly ILoginService _loginService;
-    private readonly IRegisterService _registerService;
-    private readonly IProfileService _profileService;
-    
-    public AccountController(ILoginService loginService, IRegisterService registerService, IProfileService profileService)
-    {
-        _loginService = loginService;
-        _registerService = registerService;
-        _profileService = profileService;
-    }
-
     [HttpGet]
     [AllowAnonymous]
     public IActionResult Register()
@@ -33,7 +24,7 @@ public class AccountController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
     {
-        var result = await _registerService.RegisterUserAsync(registerViewModel);
+        var result = await registerService.RegisterUserAsync(registerViewModel);
 
         if (result.Succeeded)
         {
@@ -66,7 +57,7 @@ public class AccountController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Login(LoginViewModel loginViewModel)
     {
-        var login = await _loginService.LoginAsync(loginViewModel);
+        var login = await loginService.LoginAsync(loginViewModel);
 
         if (login.IsLoginSuccessful)
         {
@@ -78,7 +69,7 @@ public class AccountController : Controller
     
     public async Task<IActionResult> Logout()
     {
-        await _loginService.LogoutAsync();
+        await loginService.LogoutAsync();
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
         return RedirectToAction("Index", "Home");
@@ -87,7 +78,7 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> Profile()
     {
-        var profileViewModel = await _profileService.GetProfileDetailsAsync(User);
+        var profileViewModel = await profileService.GetProfileDetailsAsync(User);
         
         return View(profileViewModel);
     }

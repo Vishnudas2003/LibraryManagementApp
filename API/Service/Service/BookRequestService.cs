@@ -1,43 +1,16 @@
 ﻿using System.Text.Json;
 using API.Model.Book;
-using API.Service.Interface;
-using Data.Data;
-using Microsoft.EntityFrameworkCore;
+using API.Service.Interface.Repository;
+using API.Service.Interface.Service;
 
 namespace API.Service.Service;
 
-public class BookRequestService : IBookRequestService
+public class BookRequestService(IHttpClientFactory httpClientFactory, IBookRepository bookRepository)
+    : IBookRequestService
 {
-    private readonly ApplicationDbContext _applicationDbContext;
-    private readonly IHttpClientFactory _httpClientFactory;
-
-    public BookRequestService(ApplicationDbContext applicationDbContext, IHttpClientFactory httpClientFactory)
-    {
-        _applicationDbContext = applicationDbContext;
-        _httpClientFactory = httpClientFactory;
-    }
-
     public async Task<List<BookRequest>> GetBooksAsync()
     {
-        return await GetListOfBooks().ToListAsync();
-    }
-
-    private IQueryable<BookRequest> GetListOfBooks()
-    {
-        var books = _applicationDbContext.Book
-            .Where(b => b.StatusId != 0 && b.IsDeleted == false)
-            .Select(b => new BookRequest
-            {
-                Title = b.Title,
-                Isbn = b.Isbn,
-                PublicationDate = b.PublicationDateT.ToShortDateString(),
-                Quantity = b.Quantity,
-                Author = new[] { $"{b.Author.FirstName} {b.Author.LastName}" },
-                Publisher = b.Publisher.Name,
-                Genre = b.Genre.Name
-            });
-
-        return books;
+        return await bookRepository.GetAllBooksAsync();
     }
 
     public async Task<BookRequest> GetBookDetailsByIsbnAsync(string? isbn)
@@ -49,7 +22,7 @@ public class BookRequestService : IBookRequestService
 
         try
         {
-            var response = await _httpClientFactory.CreateClient().GetAsync(url);
+            var response = await httpClientFactory.CreateClient().GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -67,7 +40,7 @@ public class BookRequestService : IBookRequestService
                     : 0;
                 bookRequest.Publisher = GetPropertyValue(jsonElement, "publisher");
                 bookRequest.PublicationDate = GetPropertyValue(jsonElement, "publishedDate");
-                bookRequest.Genre = GetPropertyValue(jsonElement, "genre");
+                bookRequest.Genre = GetGenres(jsonElement);
             }
         }
         catch (HttpRequestException e)
@@ -76,6 +49,18 @@ public class BookRequestService : IBookRequestService
         }
 
         return bookRequest;
+    }
+
+    private string?[] GetGenres(JsonElement element)
+    {
+        if (element.TryGetProperty("categories", out var categoriesValue))
+        {
+            return categoriesValue.EnumerateArray()
+                .Select(category => category.GetString()?.Trim())
+                .Where(category => !string.IsNullOrEmpty(category))
+                .ToArray();
+        }
+        return new[] { "N/A" };
     }
 
     private string GetPropertyValue(JsonElement element, string propertyName)

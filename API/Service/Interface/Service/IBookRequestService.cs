@@ -1,6 +1,6 @@
 ﻿using API.Model.Book;
 
-namespace API.Service.Interface;
+namespace API.Service.Interface.Service;
 
 public interface IBookRequestService
 {

@@ -7,8 +7,8 @@ public class BookRequest
     public string? SubTitle { get; set; }
     public string? PublicationDate { get; set; }
     public int Quantity { get; set; }
-    public string? Genre { get; set; }
-    public string?[] Author { get; set; }
+    public string?[]? Genre { get; set; }
+    public string?[]? Author { get; set; }
     public string? Publisher { get; set; }
     public int? PageCount { get; set; }
     public string? PrintType { get; set; }

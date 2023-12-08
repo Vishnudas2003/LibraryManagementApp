@@ -1,4 +1,6 @@
-using API.Service.Interface;
+using API.Service.Interface.Repository;
+using API.Service.Interface.Service;
+using API.Service.Repository;
 using API.Service.Service;
 using Core.Models.Account;
 using Data.Data;
@@ -11,6 +13,8 @@ ConfigureApi(webApplicationBuilder);
 ConfigureDatabase(webApplicationBuilder);
 ConfigureIdentity(webApplicationBuilder);
 ConfigureServices(webApplicationBuilder);
+ConfigureOptions(webApplicationBuilder);
+ConfigureRepositories(webApplicationBuilder);
 AddAuthorizationPolicies(webApplicationBuilder);
 
 var app = webApplicationBuilder.Build();
@@ -19,7 +23,7 @@ ConfigurePipeline(app);
 
 app.Run();
 
-void ConfigureApi(WebApplicationBuilder builder)
+void ConfigureApi(IHostApplicationBuilder builder)
 {
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddControllers();
@@ -27,7 +31,7 @@ void ConfigureApi(WebApplicationBuilder builder)
     builder.Services.AddSwaggerGen();
 }
 
-void ConfigureDatabase(WebApplicationBuilder builder)
+void ConfigureDatabase(IHostApplicationBuilder builder)
 {
     var connectionString = builder.Configuration.GetConnectionString("ApplicationContextConnection") ??
                            throw new InvalidOperationException("No DB Connection Found.");
@@ -36,7 +40,7 @@ void ConfigureDatabase(WebApplicationBuilder builder)
         options.UseSqlServer(connectionString));
 }
 
-void ConfigureIdentity(WebApplicationBuilder builder)
+void ConfigureIdentity(IHostApplicationBuilder builder)
 {
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -44,13 +48,22 @@ void ConfigureIdentity(WebApplicationBuilder builder)
         .AddDefaultTokenProviders();
 }
 
-void ConfigureServices(WebApplicationBuilder builder)
+void ConfigureServices(IHostApplicationBuilder builder)
 {
     builder.Services.AddTransient<IBookRequestService, BookRequestService>();
+}
+
+void ConfigureRepositories(IHostApplicationBuilder builder)
+{
+    builder.Services.AddTransient<IBookRepository, BookRepository>();
+}
+
+void ConfigureOptions(IHostApplicationBuilder builder)
+{
     builder.Services.AddHttpClient();
 }
 
-void AddAuthorizationPolicies(WebApplicationBuilder builder)
+void AddAuthorizationPolicies(IHostApplicationBuilder builder)
 {
     builder.Services.AddAuthorization(options =>
     {
@@ -68,13 +81,6 @@ void AddAuthorizationPolicies(WebApplicationBuilder builder)
 
 void ConfigurePipeline(WebApplication webApp)
 {
-    // Configure the HTTP request pipeline.
-    // if (webApp.Environment.IsDevelopment())
-    // {
-    //     webApp.UseSwagger();
-    //     webApp.UseSwaggerUI();
-    // }
-
     webApp.UseHttpsRedirection();
     webApp.UseAuthorization();
     webApp.MapControllers();
