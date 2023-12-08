@@ -6,18 +6,11 @@ using Services.Interface.Service.Authorization;
 
 namespace Services.Service.Authorization;
 
-public class ProfileService : IProfileService
+public class ProfileService(UserManager<ApplicationUser> userManager) : IProfileService
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    
-    public ProfileService(UserManager<ApplicationUser> userManager)
-    {
-        _userManager = userManager;
-    }
-
     public async Task<ProfileViewModel> GetProfileDetailsAsync(ClaimsPrincipal claimsPrincipal)
     {
-        var user = await _userManager.GetUserAsync(claimsPrincipal);
+        var user = await userManager.GetUserAsync(claimsPrincipal);
 
         if (user == null) return new ProfileViewModel();
         

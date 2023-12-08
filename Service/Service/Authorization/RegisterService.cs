@@ -11,12 +11,10 @@ namespace Services.Service.Authorization;
 public class RegisterService : IRegisterService
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
 
     public RegisterService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
     {
         _userManager = userManager;
-        _signInManager = signInManager;
     }
     
     public async Task<IdentityResult> RegisterUserAsync(RegisterViewModel registerViewModel)

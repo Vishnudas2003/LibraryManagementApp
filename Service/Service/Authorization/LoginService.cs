@@ -7,23 +7,15 @@ using Services.Interface.Service.Authorization;
 
 namespace Services.Service.Authorization;
 
-public class LoginService : ILoginService
+public class LoginService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+    : ILoginService
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly UserManager<ApplicationUser> _userManager;
-    
-    public LoginService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
-    {
-        _signInManager = signInManager;
-        _userManager = userManager;
-    }
-    
     public async Task<LoginViewModel> LoginAsync(LoginViewModel loginViewModel)
     {
-        var user = await _userManager.FindByNameAsync(loginViewModel.UsernameOrEmail) 
-                   ?? await _userManager.FindByEmailAsync(loginViewModel.UsernameOrEmail);
+        var user = await userManager.FindByNameAsync(loginViewModel.UsernameOrEmail) 
+                   ?? await userManager.FindByEmailAsync(loginViewModel.UsernameOrEmail);
         
-        if (user == null || !await _userManager.CheckPasswordAsync(user, loginViewModel.Password))
+        if (user == null || !await userManager.CheckPasswordAsync(user, loginViewModel.Password))
         {
             return new LoginViewModel
             {
@@ -47,13 +39,13 @@ public class LoginService : ILoginService
             };
         }
 
-        await _signInManager.SignInAsync(user, loginViewModel.RememberMe);
+        await signInManager.SignInAsync(user, loginViewModel.RememberMe);
 
         return new LoginViewModel { IsLoginSuccessful = true };
     }
 
     public async Task LogoutAsync()
     {
-        await _signInManager.SignOutAsync();
+        await signInManager.SignOutAsync();
     }
 }

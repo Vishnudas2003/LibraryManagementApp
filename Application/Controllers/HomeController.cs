@@ -6,20 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers;
 
-public class HomeController : Controller
+public class HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
+    : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-    private readonly SignInManager<ApplicationUser> _signInManager;
-
-    public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
-    {
-        _logger = logger;
-        _signInManager = signInManager;
-    }
+    private readonly ILogger<HomeController> _logger = logger;
 
     public IActionResult Index()
     {
-        if (_signInManager.IsSignedIn(User))
+        if (signInManager.IsSignedIn(User))
         {
             return RedirectToAction(nameof(Index), "Catalog");
         }

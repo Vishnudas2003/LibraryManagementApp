@@ -67,7 +67,7 @@ public class BookRequestService : IBookRequestService
                     : 0;
                 bookRequest.Publisher = GetPropertyValue(jsonElement, "publisher");
                 bookRequest.PublicationDate = GetPropertyValue(jsonElement, "publishedDate");
-                bookRequest.Genre = GetPropertyValue(jsonElement, "genre");
+                bookRequest.Genre = GetPropertyValue(jsonElement, "subject");
             }
         }
         catch (HttpRequestException e)
