@@ -1,4 +1,5 @@
 ﻿using API.Service.Interface;
+using API.Service.Interface.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
