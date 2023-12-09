@@ -8,4 +8,5 @@ public interface ICatalogService
 {
     Task<CatalogViewModel> GetBooksAsync(ClaimsPrincipal claimsPrincipal);
     Task<CatalogViewModel> GetBooksAsync(BookFilter bookFilter, ClaimsPrincipal claimsPrincipal);
+    Task<List<Genre>> GetGenresAsync();
 }

@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Core.Models.Catalog;
 using Core.Models.Catalog.VM;
+using Core.Models.Shared;
 using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Services.Interface.Service.Authorization;
@@ -93,9 +94,14 @@ public class CatalogService(ApplicationDbContext applicationDbContext, IAuthoriz
         return catalogViewModel;
     }
 
+    public async Task<List<Genre>> GetGenresAsync()
+    {
+        return await _applicationDbContext.Genre!.ToListAsync();
+    }
+
     private IQueryable<Book> ApplyCommonIncludes(IEnumerable<Book>? query)
     {
-        return query.AsQueryable().Where(e => e.StatusId != 0 && e.IsDeleted == false)
+        return query!.AsQueryable().Where(e => e.StatusId != 0 && e.IsDeleted == false)
             .Include(e => e.Publisher).Where(e => e.StatusId != 0 && e.IsDeleted == false)
             .Include(e => e.Author).Where(e => e.StatusId != 0 && e.IsDeleted == false)
             .Include(e => e.Genre).Where(e => e.StatusId != 0 && e.IsDeleted == false);

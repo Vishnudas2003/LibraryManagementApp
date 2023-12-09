@@ -42,7 +42,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label asp-for="Genre.Name" class="form-label">Genre</label>
-                            <select class="form-select" asp-for="GenreId" aria-label="Default select example">
+                            <select class="form-select select2" asp-for="GenreId" id="selectDropdown" aria-label="">
                                 <option class="disabled" selected>Select Genre</option>
                                 @foreach (var genre in Model.Genres)
                                 {
@@ -92,3 +92,7 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script src="~/js/selectGenreList.js"></script>
+}
