@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Core.Enums;
 
 namespace Core.Models.Shared;
 
@@ -9,7 +10,7 @@ public class BaseEntity
     public string Id { get; set; }
 
     [Display(Name = "Status")]
-    public int StatusId { get; set; }
+    public Status Status { get; set; }
 
     [Display(Name = "Created Date")]
     public DateTime CreatedDateT { get; set; }

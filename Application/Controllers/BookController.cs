@@ -1,33 +1,93 @@
-﻿using Core.Models.Catalog;
+﻿using API.Service.Interface.Service;
+using Core.Models.Catalog;
+using Core.Models.Catalog.VM;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface.Service.Catalog;
 
 namespace Application.Controllers;
 
-public class BookController(IBookService bookService, ICatalogService catalogService) : Controller
+public class BookController(IBookService bookService, ICatalogService catalogService,
+    IBookRequestService bookRequestService) : Controller
 {
     [HttpGet]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
     public async Task<IActionResult> Add()
     {
-        var book = await bookService.GenerateNewBookViewAsync();
-        return View(book);
+        var addBookVm = new AddBookVm
+        {
+            Book = await bookService.GenerateNewBookViewAsync()
+        };
+
+        return View(addBookVm);
     }
 
     [HttpPost]
     [Authorize(Roles = "Librarian, AssistantLibrarian, Administrator")]
-    public async Task<IActionResult> Add(Book book)
+    public async Task<IActionResult> Add(AddBookVm book)
+    {
+        var isbnExists = bookService.CheckIsbnExists(book.Isbn);
+
+        if (isbnExists)
+        {
+            if (book.AlertViewModel != null)
+            {
+                book.AlertViewModel.IsSuccess = false;
+                book.AlertViewModel.Message = "ISBN already exists";
+            }
+
+            return View(book);
+        }
+
+        var requestedBook = await bookRequestService.GetBookDetailsByIsbnAsync(book.Isbn);
+
+        var populatedBook = new Book
+        {
+            Author = new Author { Name = requestedBook.Author?[0] },
+            Publisher = new Publisher { Name = requestedBook.Publisher ?? string.Empty },
+            Isbn = requestedBook.Isbn,
+            Title = requestedBook.Title,
+            Subtitle = requestedBook.SubTitle,
+            PrintType = requestedBook.PrintType,
+            PublicationDateT = Convert.ToDateTime(requestedBook.PublicationDate),
+            Quantity = book.Quantity,
+            PageCount = requestedBook.PageCount,
+            Genre = new Genre { Name = requestedBook.Genre?[0] ?? string.Empty }
+        };
+        
+        var result = await bookService.AddBookAsync(populatedBook, true);
+
+        if (string.IsNullOrWhiteSpace(result.Id))
+        {
+            var addBookVm = new AddBookVm
+            {
+                Isbn = book.Isbn,
+                Quantity = book.Quantity,
+                Book = populatedBook
+            };
+            return View(addBookVm);
+        }
+
+        ViewBag.SuccessMessage = "Book added successfully!";
+        return RedirectToAction(nameof(Detail), new { id = result.Id });
+    }
+
+    public async Task<IActionResult> AddManually(Book book)
     {
         var result = await bookService.AddBookAsync(book);
 
         if (string.IsNullOrWhiteSpace(result.Id))
         {
-            return View(book);
+            var addBookVm = new AddBookVm
+            {
+                Book = book
+            };
+            
+            return View(nameof(Add), addBookVm);
         }
 
         ViewBag.SuccessMessage = "Book added successfully!";
-        return RedirectToAction(nameof(Detail), new { id = book.Id });
+        return RedirectToAction(nameof(Detail), new { id = result.Id });
     }
 
     [HttpGet]

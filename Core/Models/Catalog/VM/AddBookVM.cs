@@ -1,6 +1,13 @@
-﻿namespace Core.Models.Catalog.VM;
+﻿using Core.Models.Shared;
 
-public class AddBookVM
+namespace Core.Models.Catalog.VM;
+
+public class AddBookVm
 {
-    
+    public string? Isbn { get; set; }
+    public int Quantity { get; set; } = 0;
+
+    public AlertViewModel? AlertViewModel { get; set; }
+
+    public Book? Book { get; set; }
 }

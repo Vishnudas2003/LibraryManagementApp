@@ -6,10 +6,16 @@ namespace Core.Models.Catalog;
 
 public class Book : BaseEntity
 {
-    public string Isbn { get; set; } // International Standard Book Number, unique to each edition.
-    public string Title { get; set; }
+    public string? Isbn { get; set; } // International Standard Book Number, unique to each edition.
+    public string? Title { get; set; }
+    public string? Subtitle { get; set; }
+    public string? PrintType { get; set; }
+    
     public DateTime PublicationDateT { get; set; }
-    public int Quantity { get; set; }
+
+    public int Quantity { get; set; } = 0;
+    public int? PageCount { get; set; }
+    public int PublicationYear => PublicationDateT.Year;
     
     // Link Id's
     public int AuthorId { get; set; }
@@ -18,12 +24,12 @@ public class Book : BaseEntity
     
     // Linked
     [ForeignKey("GenreId")]
-    public Genre Genre { get; set; }
-    
-    [ForeignKey("AuthorId")]
+    public Genre? Genre { get; set; }
+
+    [ForeignKey("AuthorId")] 
     public Author? Author { get; set; }
-    
-    [ForeignKey("PublisherId")]
+
+    [ForeignKey("PublisherId")] 
     public Publisher? Publisher { get; set; }
     
     // Collection

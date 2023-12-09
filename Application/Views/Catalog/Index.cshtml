@@ -41,7 +41,7 @@
                                 <a asp-action="Detail" asp-controller="Book" asp-route-id="@book.Id">@book.Title</a>
                             </td>
                             <td class="text-center">@book.Quantity</td>
-                            <td class="text-center">@book.Author.FirstName @book.Author.LastName</td>
+                            <td class="text-center">@book.Author.Name</td>
                             <td class="text-center">@book.PublicationDateT.Year</td>
                             <td class="text-center">@book.Genre.Name</td>
                             @if (Model.IsEmployee)

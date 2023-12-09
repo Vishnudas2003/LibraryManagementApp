@@ -1,3 +1,7 @@
+using API.Service.Interface.Repository;
+using API.Service.Interface.Service;
+using API.Service.Repository;
+using API.Service.Service;
 using Core.Models.Account;
 using Core.Models.Catalog;
 using Data.Data;
@@ -35,7 +39,7 @@ void ConfigureDatabase(WebApplicationBuilder builder)
         options.UseSqlServer(connectionString));
 }
 
-void ConfigureIdentity(WebApplicationBuilder builder)
+void ConfigureIdentity(IHostApplicationBuilder builder)
 {
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -43,7 +47,7 @@ void ConfigureIdentity(WebApplicationBuilder builder)
         .AddDefaultTokenProviders();
 }
 
-void ConfigureMvc(WebApplicationBuilder builder)
+void ConfigureMvc(IHostApplicationBuilder builder)
 {
     builder.Services.AddControllersWithViews()
         .AddViewOptions(options => { options.HtmlHelperOptions.ClientValidationEnabled = true; });
@@ -51,7 +55,7 @@ void ConfigureMvc(WebApplicationBuilder builder)
     builder.Services.AddHttpClient();
 }
 
-void ConfigureServices(WebApplicationBuilder builder)
+void ConfigureServices(IHostApplicationBuilder builder)
 {
     builder.Services.AddTransient<ILoginService, LoginService>();
     builder.Services.AddTransient<IRegisterService, RegisterService>();
@@ -59,16 +63,19 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddTransient<IBookService, BookService>();
     builder.Services.AddTransient<ICatalogService, CatalogService>();
     builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
+    
+    builder.Services.AddTransient<IBookRequestService, BookRequestService>();
+    builder.Services.AddTransient<IBookRepository, BookRepository>();
 }
 
-void ConfigureRepositories(WebApplicationBuilder builder)
+void ConfigureRepositories(IHostApplicationBuilder builder)
 {
     builder.Services.AddTransient<IRoleRepository, RoleRepository<IdentityRole>>();
     builder.Services.AddTransient<ICatalogRepository, CatalogRepository>();
     builder.Services.AddTransient<IGenericRepository<Book>, GenericRepository<Book>>();
 }
 
-void AddAuthorizationPolicies(WebApplicationBuilder builder)
+void AddAuthorizationPolicies(IHostApplicationBuilder builder)
 {
     builder.Services.AddAuthorization(options =>
     {
@@ -82,6 +89,11 @@ void AddAuthorizationPolicies(WebApplicationBuilder builder)
         options.AddPolicy("Librarian", policy => policy.RequireRole("Librarian"));
         options.AddPolicy("Researcher", policy => policy.RequireRole("Researcher"));
     });
+}
+
+void ConfigureCookie(IHostApplicationBuilder builder)
+{
+    builder.Services.ConfigureApplicationCookie(options => { options.AccessDeniedPath = "/Home/AccessDenied"; });
 }
 
 void ConfigurePipeline(WebApplication webApp)
@@ -101,9 +113,4 @@ void ConfigurePipeline(WebApplication webApp)
     webApp.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
-}
-
-void ConfigureCookie(WebApplicationBuilder builder)
-{
-    builder.Services.ConfigureApplicationCookie(options => { options.AccessDeniedPath = "/Home/AccessDenied"; });
 }

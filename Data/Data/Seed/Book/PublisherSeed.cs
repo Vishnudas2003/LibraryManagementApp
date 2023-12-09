@@ -8,7 +8,8 @@ public static class PublisherSeed
     public static void SeedPublishers(this ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Publisher>().HasData(
-            CreatePublisher(1, "Footnail Press"));
+            CreatePublisher(1, "Footnail Press"),
+            CreatePublisher(2, "Bantam"));
     }
 
     private static Publisher CreatePublisher(int id, string name)
