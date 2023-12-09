@@ -96,7 +96,9 @@ public class CatalogService(ApplicationDbContext applicationDbContext, IAuthoriz
 
     public async Task<List<Genre>> GetGenresAsync()
     {
-        return await _applicationDbContext.Genre!.ToListAsync();
+        return await _applicationDbContext.Genre!
+            .OrderBy(e => e.Name)
+            .ToListAsync();
     }
 
     private IQueryable<Book> ApplyCommonIncludes(IEnumerable<Book>? query)

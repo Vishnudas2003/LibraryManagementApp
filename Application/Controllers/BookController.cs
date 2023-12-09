@@ -1,5 +1,4 @@
 ﻿using Core.Models.Catalog;
-using Core.Models.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface.Service.Catalog;
@@ -79,7 +78,7 @@ public class BookController(IBookService bookService, ICatalogService catalogSer
         var allGenres = await catalogService.GetGenresAsync();
         var filteredGenres = string.IsNullOrEmpty(q)
             ? allGenres
-            : allGenres.Where(g => g.Name.ToLower().Contains(q.ToLower()) || g.Code.ToLower().Contains(q.ToLower()));
+            : allGenres.Where(g => g.Name.ToLower().Contains(q.ToLower()));
 
         var limitedGenres = filteredGenres
             .Take(10)
