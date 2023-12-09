@@ -24,7 +24,7 @@ Welcome to the Library Management Application - an open-source project aimed at 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-- [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+- [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - SQL Server with DB name LibrayManagementApp
 
 ## Setup and Installation
