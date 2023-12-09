@@ -19,73 +19,56 @@ public class BookService(ApplicationDbContext applicationDbContext,
     {
         return new Book
         {
-            Genres = await applicationDbContext.Genre.ToListAsync()
+            Genres = await (applicationDbContext.Genre ?? throw new InvalidOperationException())
+                .ToListAsync()
         };
     }
 
-    public async Task<Book> AddBookAsync(Book book)
+    public bool CheckIsbnExists(string? bookIsbn)
     {
-        var bookExists = applicationDbContext.Book.Any(e => e.Title == book.Title);
-        var ibanExists = applicationDbContext.Book.Any(e => e.Isbn == book.Isbn);
+        return (applicationDbContext.Book ?? throw new InvalidOperationException())
+            .Any(e => e.Isbn == bookIsbn);
+    }
 
-        if (bookExists)
-        {
-            book.AlertViewModel.IsSuccess = false;
-            book.AlertViewModel.Message = "Book already exists";
-        }
-        
-        if (ibanExists)
-        {
-            book.AlertViewModel.IsSuccess = false;
-            book.AlertViewModel.Message = "Isbn already exists";
-        }
-        
-        book.Id = Guid.NewGuid().ToString();
-        book.CreatedDateT = DateTime.UtcNow;
-        book.StatusId = (int)Status.Active;
-        book.IsDeleted = false;
+    private bool CheckTitleExists(string? title)
+    {
+        return (applicationDbContext.Book ?? throw new InvalidOperationException())
+            .Any(e => e.Title == title);
+    }
 
-        // Check if the author exists
-        var existingAuthor = applicationDbContext.Author
-            .FirstOrDefault(e => e.FirstName == book.Author.FirstName && e.LastName == book.Author.LastName);
-    
-        if (existingAuthor != null)
+    public async Task<Book> AddBookAsync(Book book, bool isFromApi = false)
+    {
+        if (IsBookExisting(book))
         {
-            // If the author exists, use the existing author's Id
-            book.AuthorId = existingAuthor.Id;
-            book.Author = null; // Detach the new Author object
+            SetBookAlert(book, false, "Book already exists");
+            return book;
         }
 
-        // Check if the publisher exists
-        var existingPublisher = applicationDbContext.Publisher
-            .FirstOrDefault(e => e.Name == book.Publisher.Name);
+        SetNewBookProperties(book);
+        AttachExistingEntities(book, isFromApi);
 
-        if (existingPublisher != null)
-        {
-            // If the publisher exists, use the existing publisher's Id
-            book.PublisherId = existingPublisher.Id;
-            book.Publisher = null; // Detach the new Publisher object
-        }
-
-        applicationDbContext.Book.Add(book);
+        applicationDbContext.Book?.Add(book);
         await applicationDbContext.SaveChangesAsync();
 
         return book;
     }
-
+    
     public async Task DeleteBookAsync(string id)
     {
-        var book = await applicationDbContext.Book.FindAsync(id);
-        if (book != null)
+        if (applicationDbContext.Book != null)
         {
-            applicationDbContext.Book.Remove(book);
-            await applicationDbContext.SaveChangesAsync();
+            var book = await applicationDbContext.Book.FindAsync(id);
+            if (book != null)
+            {
+                applicationDbContext.Book.Remove(book);
+                await applicationDbContext.SaveChangesAsync();
+            }
         }
     }
 
     public async Task<BookDetailViewModel> GetBookDetailsAsync(string id, ClaimsPrincipal claimsPrincipal)
     {
-        var book = await applicationDbContext.Book
+        var book = await (applicationDbContext.Book ?? throw new InvalidOperationException())
             .Include(e => e.Loans)
             .Include(e => e.Reservations)
             .Include(e => e.Author).ThenInclude(e => e.Books)
@@ -104,26 +87,87 @@ public class BookService(ApplicationDbContext applicationDbContext,
 
     public async Task<Book> EditBookAsync(Book book)
     {
-        var existingBook = await applicationDbContext.Book.FindAsync(book.Id);
-        if (existingBook != null)
+        if (applicationDbContext.Book != null)
         {
-            applicationDbContext.Entry(existingBook).CurrentValues.SetValues(book);
-            await applicationDbContext.SaveChangesAsync();
+            var existingBook = await applicationDbContext.Book.FindAsync(book.Id);
+            if (existingBook != null)
+            {
+                applicationDbContext.Entry(existingBook).CurrentValues.SetValues(book);
+                await applicationDbContext.SaveChangesAsync();
 
-            book.AlertViewModel = new AlertViewModel
+                SetBookAlert(book, true, null);
+            }
+            else
             {
-                IsSuccess = true
-            };
-        }
-        else
-        {
-            book.AlertViewModel = new AlertViewModel
-            {
-                IsSuccess = false,
-                Message = StringConstants.BookUpdateFailure
-            };
+                SetBookAlert(book, false, StringConstants.BookUpdateFailure);
+            }
         }
 
         return book;
+    }
+    
+    private bool IsBookExisting(Book book)
+    {
+        return CheckIsbnExists(book.Isbn) || CheckTitleExists(book.Title);
+    }
+
+    private void SetNewBookProperties(BaseEntity book)
+    {
+        book.Id = Guid.NewGuid().ToString();
+        book.CreatedDateT = DateTime.UtcNow;
+        book.Status = Status.Active;
+        book.IsDeleted = false;
+    }
+
+    private void AttachExistingEntities(Book book, bool isFromApi)
+    {
+        AttachExistingAuthor(book);
+        AttachExistingPublisher(book);
+        if (isFromApi)
+        {
+            AttachExistingGenre(book);
+        }
+    }
+
+    private void AttachExistingAuthor(Book book)
+    {
+        var existingAuthor = (applicationDbContext.Author ?? throw new InvalidOperationException())
+            .FirstOrDefault(e => book.Author != null && e.Name == book.Author.Name);
+
+        if (existingAuthor != null)
+        {
+            book.AuthorId = existingAuthor.Id;
+            book.Author = null;
+        }
+    }
+
+    private void AttachExistingPublisher(Book book)
+    {
+        var existingPublisher = (applicationDbContext.Publisher ?? throw new InvalidOperationException())
+            .FirstOrDefault(e => book.Publisher != null && e.Name == book.Publisher.Name);
+
+        if (existingPublisher != null)
+        {
+            book.PublisherId = existingPublisher.Id;
+            book.Publisher = null;
+        }
+    }
+
+    private void AttachExistingGenre(Book book)
+    {
+        var existingGenre = (applicationDbContext.Genre ?? throw new InvalidOperationException())
+            .FirstOrDefault(e => book.Genre != null && e.Name == book.Genre.Name);
+
+        if (existingGenre != null)
+        {
+            book.GenreId = existingGenre.Id;
+            book.Genre = null;
+        }
+    }
+
+    private void SetBookAlert(Book book, bool isSuccess, string message)
+    {
+        book.AlertViewModel.IsSuccess = isSuccess;
+        book.AlertViewModel.Message = message;
     }
 }

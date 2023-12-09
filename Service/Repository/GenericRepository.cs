@@ -1,4 +1,5 @@
-﻿using Core.Models.Shared;
+﻿using Core.Enums;
+using Core.Models.Shared;
 using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Services.Interface.Repository;
@@ -37,7 +38,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
             if (entity == null) throw new InvalidOperationException("Cannot delete a null object!");
             //We do a soft delete, just update it.
             entity.IsDeleted = true;
-            entity.StatusId = 0;
+            entity.Status = Status.Deleted;
             entity.DeletedDateT = DateTime.UtcNow;
             await UpdateAsync(entity);
         }

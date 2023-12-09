@@ -1,4 +1,4 @@
-﻿@model Core.Models.Catalog.Book
+﻿@model Core.Models.Catalog.VM.AddBookVm
 
 @{
     ViewBag.Title = "Add Book";
@@ -14,71 +14,110 @@
         </ol>
     </nav>
 
-    <div class="card">
+    <div class="card mt-3">
         <div class="card-body mt-3">
+            <h3>Add Book via ISBN</h3>
             <form asp-action="Add" asp-controller="Book" method="post">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="mb-3">
-                            <label asp-for="Title" class="form-label">Title</label>
-                            <input asp-for="Title" type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <div class="mb-3">
                             <label asp-for="Isbn" class="form-label">ISBN</label>
                             <input asp-for="Isbn" type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label asp-for="PublicationDateT" class="form-label">Publication Date</label>
-                            <input asp-for="PublicationDateT" type="date" class="form-control">
-                        </div>
-                    </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label asp-for="Genre.Name" class="form-label">Genre</label>
-                            <select class="form-select select2" asp-for="GenreId" id="selectDropdown" aria-label="">
-                                <option class="disabled" selected>Select Genre</option>
-                                @foreach (var genre in Model.Genres)
-                                {
-                                    <option value="@genre.Id">@genre.Name</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-1">
-                        <div class="mb-3">
                             <label asp-for="Quantity" class="form-label">Quantity</label>
-                            <input asp-for="Quantity" type="number" class="form-control">
+                            <input asp-for="Quantity" type="text" class="form-control">
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
+                    <div class="col-md-3 offset-md-9">
+                        <input class="btn btn-primary btn-lg w-100" type="submit" value="Add Book"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-                    <div class="col-md-4">
+    <div class="card mt-3">
+        <div class="card-body mt-3">
+            <h3>Add Book Manually</h3>
+            <form asp-action="AddManually" asp-controller="Book" method="post">
+                <div class="row">
+                    <div class="col-md-8">
                         <div class="mb-3">
-                            <label asp-for="Author.FirstName" class="form-label">Author Forename</label>
-                            <input asp-for="Author.FirstName" type="text" class="form-control">
+                            <label asp-for="Book.Title" class="form-label">Title</label>
+                            <input asp-for="Book.Title" type="text" class="form-control">
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label asp-for="Author.LastName" class="form-label">Author Surname</label>
-                            <input asp-for="Author.LastName" type="text" class="form-control">
+                            <label asp-for="Book.Subtitle" class="form-label">Sub Title</label>
+                            <input asp-for="Book.Subtitle" type="text" class="form-control">
                         </div>
                     </div>
+                </div>
 
+                <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label asp-for="Publisher.Name" class="form-label">Publisher Name</label>
-                            <input asp-for="Publisher.Name" type="text" class="form-control">
+                            <label asp-for="Book.Isbn" class="form-label">ISBN</label>
+                            <input asp-for="Book.Isbn" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Book.PublicationDateT" class="form-label">Publication Date</label>
+                            <input asp-for="Book.PublicationDateT" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Book.Genre.Name" class="form-label">Genre</label>
+                        <select class="form-select select2" asp-for="Book.GenreId" id="selectDropdown" aria-label="">
+                            <option class="disabled" selected>Select Genre</option>
+                            @foreach (var genre in Model.Book.Genres)
+                            {
+                                <option value="@genre.Id">@genre.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Book.PrintType" class="form-label">Print Type</label>
+                            <input asp-for="Book.PrintType" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Book.PageCount" class="form-label">Subtitle</label>
+                            <input asp-for="Book.PageCount" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Book.Quantity" class="form-label">Quantity</label>
+                            <input asp-for="Book.Quantity" type="number" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Book.Author.Name" class="form-label">Author Name</label>
+                            <input asp-for="Book.Author.Name" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Book.Publisher.Name" class="form-label">Publisher Name</label>
+                            <input asp-for="Book.Publisher.Name" type="text" class="form-control">
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 using System.Security.Claims;
+using Core.Enums;
 using Core.Models.Catalog;
 using Core.Models.Catalog.VM;
-using Core.Models.Shared;
 using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Services.Interface.Service.Authorization;
@@ -22,7 +22,7 @@ public class CatalogService(ApplicationDbContext applicationDbContext, IAuthoriz
         CatalogViewModel catalogViewModel = new()
         {
             Books = await booksQuery
-                .Where(e=> e.IsDeleted == false || e.StatusId != 0)
+                .Where(e=> e.IsDeleted == false || e.Status != Status.Blocked)
                 .ToListAsync(),
             IsEmployee = authorizationService.IsLibraryStaff(claimsPrincipal),
             BookFilter = new BookFilter
@@ -34,18 +34,19 @@ public class CatalogService(ApplicationDbContext applicationDbContext, IAuthoriz
         return catalogViewModel;
     }
 
+    public bool GenreDoesExist(string genre)
+    {
+        var result = _applicationDbContext.Genre.Any(e => e.Name == genre);
+        return result;
+    }
+
     public async Task<CatalogViewModel> GetBooksAsync(BookFilter bookFilter, ClaimsPrincipal claimsPrincipal)
     {
         var booksQuery = ApplyCommonIncludes(_applicationDbContext.Book);
 
-        if (!string.IsNullOrEmpty(bookFilter.AuthorFirstName))
+        if (!string.IsNullOrEmpty(bookFilter.AuthorName))
         {
-            booksQuery = ApplyFilter(booksQuery, b => b.Author.FirstName.Contains(bookFilter.AuthorFirstName));
-        }
-
-        if (!string.IsNullOrEmpty(bookFilter.AuthorLastName))
-        {
-            booksQuery = ApplyFilter(booksQuery, b => b.Author.LastName.Contains(bookFilter.AuthorLastName));
+            booksQuery = ApplyFilter(booksQuery, b => b.Author.Name.Contains(bookFilter.AuthorName));
         }
 
         if (!string.IsNullOrEmpty(bookFilter.Publisher))
@@ -96,15 +97,17 @@ public class CatalogService(ApplicationDbContext applicationDbContext, IAuthoriz
 
     public async Task<List<Genre>> GetGenresAsync()
     {
-        return await _applicationDbContext.Genre!.ToListAsync();
+        return await _applicationDbContext.Genre!
+            .OrderBy(e => e.Name)
+            .ToListAsync();
     }
 
     private IQueryable<Book> ApplyCommonIncludes(IEnumerable<Book>? query)
     {
-        return query!.AsQueryable().Where(e => e.StatusId != 0 && e.IsDeleted == false)
-            .Include(e => e.Publisher).Where(e => e.StatusId != 0 && e.IsDeleted == false)
-            .Include(e => e.Author).Where(e => e.StatusId != 0 && e.IsDeleted == false)
-            .Include(e => e.Genre).Where(e => e.StatusId != 0 && e.IsDeleted == false);
+        return query!.AsQueryable().Where(e => e.Status != Status.Blocked && e.IsDeleted == false)
+            .Include(e => e.Publisher).Where(e => e.Status != Status.Blocked && e.IsDeleted == false)
+            .Include(e => e.Author).Where(e => e.Status != Status.Blocked && e.IsDeleted == false)
+            .Include(e => e.Genre).Where(e => e.Status != Status.Blocked && e.IsDeleted == false);
     }
 
     private IQueryable<Book> ApplyFilter(IQueryable<Book> query, Expression<Func<Book, bool>> filter)

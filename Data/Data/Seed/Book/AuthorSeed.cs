@@ -8,16 +8,17 @@ public static class AuthorSeed
     public static void SeedAuthors(this ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Author>().HasData(
-            CreateAuthor(1, "AK", "Howard"));
+            CreateAuthor(1, "Howard Haugom"),
+            CreateAuthor(2, "Laurence Gardner"),
+            CreateAuthor(3, "A. K. Howard"));
     }
 
-    private static Author CreateAuthor(int id, string firstName, string lastName)
+    private static Author CreateAuthor(int id, string name)
     {
         return new Author
         {
             Id = id,
-            FirstName = firstName,
-            LastName = lastName
+            Name = name
         };
     }
 }
